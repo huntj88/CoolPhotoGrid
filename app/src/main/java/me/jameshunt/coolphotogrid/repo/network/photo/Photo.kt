@@ -6,9 +6,11 @@ import me.jameshunt.coolphotogrid.repo.realm.RealmPhoto
 import me.jameshunt.coolphotogrid.repo.realm.RealmPhotoUrls
 import me.jameshunt.coolphotogrid.repo.realm.RealmPhotoUser
 import org.threeten.bp.Instant
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.ZoneOffset
+import org.threeten.bp.format.DateTimeFormatter
 
 
-//"created_at": "2016-08-14T12:33:21-04:00"
 data class Photo(
 
         @Expose val id: String = "",
@@ -23,7 +25,7 @@ data class Photo(
 
     fun getRealmVersion(): RealmPhoto {
 
-        val unixTime = Instant.parse(createdAt).epochSecond
+        val unixTime = LocalDateTime.parse(createdAt, DateTimeFormatter.ISO_DATE_TIME).toEpochSecond(ZoneOffset.UTC)
 
         val descriptionCheck = description?:""
 

@@ -3,7 +3,7 @@ package me.jameshunt.coolphotogrid.di.activity
 import kotlinx.android.synthetic.main.browse_layout.*
 import me.jameshunt.coolphotogrid.CoolApplication
 import me.jameshunt.coolphotogrid.di.page.DaggerPageComponent
-import me.jameshunt.coolphotogrid.di.page.PageModule
+import me.jameshunt.coolphotogrid.di.page.BrowseModule
 import me.jameshunt.coolphotogrid.feature.activity.MainActivity
 
 /**
@@ -21,7 +21,7 @@ class Injector(private val mainActivity: MainActivity) {
 
 
     private fun injectLayouts(activityComponent: ActivityComponent) {
-        val pageComponent = DaggerPageComponent.builder().activityComponent(activityComponent).pageModule(PageModule()).build()
+        val pageComponent = DaggerPageComponent.builder().activityComponent(activityComponent).browseModule(BrowseModule()).build()
 
         mainActivity.browse_view.inject(pageComponent)
     }

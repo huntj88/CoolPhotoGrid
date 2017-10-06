@@ -27,7 +27,7 @@ class NewPhotosAccumulator(private val unsplashService: UnsplashService, private
 
         val photosCache = getPhotosFromRealm()
 
-        Timber.i("photo cache size: " + photosCache?.size)
+        Timber.i("photo cache size: " + photosCache.size)
 
         return when(photosCache.size == 0) {
             true -> {

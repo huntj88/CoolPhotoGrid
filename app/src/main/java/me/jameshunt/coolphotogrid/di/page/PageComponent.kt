@@ -9,7 +9,7 @@ import me.jameshunt.coolphotogrid.feature.browse.BrowseView
  */
 
 @PageScope
-@Component(modules = arrayOf(PageModule::class), dependencies = arrayOf(ActivityComponent::class))
+@Component(modules = arrayOf(BrowseModule::class), dependencies = arrayOf(ActivityComponent::class))
 interface PageComponent {
 
     fun inject(browseView: BrowseView)

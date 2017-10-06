@@ -2,17 +2,25 @@ package me.jameshunt.coolphotogrid.feature.browse
 
 import android.content.Context
 import android.support.constraint.ConstraintLayout
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
+import android.view.View
+import kotlinx.android.synthetic.main.browse_layout.view.*
 import me.jameshunt.coolphotogrid.di.page.PageComponent
+import me.jameshunt.coolphotogrid.feature.recycler.AdapterContract
 import javax.inject.Inject
 
 /**
  * Created by James on 10/5/2017.
  */
-class BrowseView: ConstraintLayout, BrowseContract.View {
+class BrowseView : ConstraintLayout, BrowseContract.View {
 
     @Inject
     override lateinit var presenter: BrowseContract.Presenter
+
+    @Inject
+    lateinit var adapter: AdapterContract.Adapter
 
 
     constructor(context: Context?) : super(context)
@@ -21,9 +29,26 @@ class BrowseView: ConstraintLayout, BrowseContract.View {
 
     fun inject(pageComponent: PageComponent) {
         pageComponent.inject(this)
+        presenter.view = this
+
+        browse_recycle.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
         presenter.viewLoaded()
     }
 
+    override fun updateRecycler() {
 
+        if (browse_recycle.adapter == null)
+            browse_recycle.adapter = adapter as RecyclerView.Adapter<*>
+        else
+            (adapter as RecyclerView.Adapter<*>).notifyDataSetChanged()
+    }
+
+    override fun showLoadingAnimation() {
+        progress_bar.visibility = View.VISIBLE
+    }
+
+    override fun hideLoadingAnimation() {
+        progress_bar.visibility = View.GONE
+    }
 }

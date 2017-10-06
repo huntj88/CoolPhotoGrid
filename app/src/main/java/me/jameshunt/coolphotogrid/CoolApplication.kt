@@ -1,6 +1,7 @@
 package me.jameshunt.coolphotogrid
 
 import android.app.Application
+import com.facebook.drawee.backends.pipeline.Fresco
 import com.squareup.leakcanary.LeakCanary
 import io.realm.Realm
 import me.jameshunt.coolphotogrid.di.app.AppComponent
@@ -19,6 +20,7 @@ class CoolApplication: Application() {
     override fun onCreate() {
         super.onCreate()
         Realm.init(this)
+        Fresco.initialize(this)
 
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())

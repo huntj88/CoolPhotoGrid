@@ -7,5 +7,5 @@ import me.jameshunt.coolphotogrid.repo.api.BaseApi
  */
 class BrowseModel: BrowseContract.Model {
 
-    override lateinit var currentApi: BaseApi
+    override var currentApi: BaseApi? = null
 }

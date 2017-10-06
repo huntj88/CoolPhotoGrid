@@ -15,10 +15,10 @@ interface AdapterContract {
 
     }
 
-    interface Presenter {
+    interface Presenter<out Types: ViewTypeEnum> {
         fun getItemViewType(position: Int): Int
         fun getItemCount(): Int
-        fun getEnumForViewType(viewType: Int): ViewTypeEnum
+        fun getEnumForViewType(viewType: Int): Types
         fun getViewHolderData(position: Int): ViewHolderData
     }
 
@@ -27,8 +27,8 @@ interface AdapterContract {
     }
 
 
-    interface ViewHolderFactory {
-        fun createViewHolder(parent: ViewGroup, viewType: ViewTypeEnum): ViewHolder
+    interface ViewHolderFactory<Types: ViewTypeEnum> {
+        fun createViewHolder(parent: ViewGroup, viewType: Types): ViewHolder
     }
 
     interface ViewHolderData {
@@ -36,6 +36,9 @@ interface AdapterContract {
     }
 
     interface ViewTypeEnum {
+        val viewID: Int
+        val layout: Int
 
+        fun extraViewOperations(view: View)
     }
 }

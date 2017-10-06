@@ -5,6 +5,10 @@ import dagger.Provides
 import me.jameshunt.coolphotogrid.feature.browse.BrowseContract
 import me.jameshunt.coolphotogrid.feature.browse.BrowseModel
 import me.jameshunt.coolphotogrid.feature.browse.BrowsePresenter
+import me.jameshunt.coolphotogrid.feature.browse.CoolGridAdapter
+import me.jameshunt.coolphotogrid.feature.browse.viewHolder.util.GridViewHolderFactory
+import me.jameshunt.coolphotogrid.feature.browse.viewHolder.util.GridViewType
+import me.jameshunt.coolphotogrid.feature.recycler.AdapterContract
 import me.jameshunt.coolphotogrid.feature.rx.RxCommunicatorContract
 import me.jameshunt.coolphotogrid.feature.rx.data.RxNewPhotos
 import me.jameshunt.coolphotogrid.repo.api.ApiFactory
@@ -14,7 +18,7 @@ import me.jameshunt.coolphotogrid.repo.api.ApiFactory
  */
 
 @Module
-class PageModule {
+class BrowseModule {
 
     @PageScope
     @Provides
@@ -33,5 +37,19 @@ class PageModule {
     @Provides
     fun getBrowseModel(): BrowseContract.Model {
         return BrowseModel()
+    }
+
+
+    @PageScope
+    @Provides
+    fun getGridViewHolderFactory(): AdapterContract.ViewHolderFactory<GridViewType> {
+        return GridViewHolderFactory()
+    }
+
+    @PageScope
+    @Provides
+    fun getGridAdapter(presenter: BrowseContract.Presenter, gridViewHolderFactory: AdapterContract.ViewHolderFactory<GridViewType>): AdapterContract.Adapter {
+
+        return CoolGridAdapter(presenter, gridViewHolderFactory)
     }
 }
