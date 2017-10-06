@@ -6,8 +6,7 @@ import me.jameshunt.coolphotogrid.feature.activity.ActivityContract
 import me.jameshunt.coolphotogrid.feature.activity.ActivityModel
 import me.jameshunt.coolphotogrid.feature.rx.RxCommunicator
 import me.jameshunt.coolphotogrid.feature.rx.RxCommunicatorContract
-import me.jameshunt.coolphotogrid.feature.rx.RxData
-import javax.inject.Named
+import me.jameshunt.coolphotogrid.feature.rx.data.RxNewPhotos
 import javax.inject.Singleton
 
 /**
@@ -19,31 +18,25 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun getActivityModel(): ActivityContract.Model {
-        return ActivityModel()
+    fun getActivityModel(initialDataEmitter: RxCommunicatorContract.Emitter<RxNewPhotos>): ActivityContract.Model {
+        return ActivityModel(initialDataEmitter)
     }
 
 
     @Singleton
     @Provides
-    @Named(RxCommunicatorContract.INITIAL_DATA)
-    fun getInitialRxCommunicator(): RxCommunicator<RxData> {
+    fun getNewPhotosRxCommunicator(): RxCommunicator<RxNewPhotos> {
         return RxCommunicator()
     }
 
-    @Singleton
     @Provides
-    @Named(RxCommunicatorContract.INITIAL_DATA)
-    fun getInitialDataRxObserver(@Named(RxCommunicatorContract.INITIAL_DATA) rxCommunicator: RxCommunicator<RxData>): RxCommunicatorContract.Observer<RxData> {
+    fun getNewPhotosRxObserver(rxCommunicator: RxCommunicator<RxNewPhotos>): RxCommunicatorContract.Observer<RxNewPhotos> {
         return rxCommunicator
     }
 
-    @Singleton
     @Provides
-    @Named(RxCommunicatorContract.INITIAL_DATA)
-    fun getInitialDataRxEmitter(@Named(RxCommunicatorContract.INITIAL_DATA) rxCommunicator: RxCommunicator<RxData>): RxCommunicatorContract.Emitter<RxData> {
+    fun getNewPhotosRxEmitter(rxCommunicator: RxCommunicator<RxNewPhotos>): RxCommunicatorContract.Emitter<RxNewPhotos> {
         return rxCommunicator
     }
-
 
 }

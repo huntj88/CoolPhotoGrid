@@ -1,13 +1,18 @@
 package me.jameshunt.coolphotogrid.repo.network.photo
 
 import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 import me.jameshunt.coolphotogrid.repo.realm.RealmPhoto
 import me.jameshunt.coolphotogrid.repo.realm.RealmPhotoUrls
 import me.jameshunt.coolphotogrid.repo.realm.RealmPhotoUser
+import org.threeten.bp.Instant
 
+
+//"created_at": "2016-08-14T12:33:21-04:00"
 data class Photo(
 
         @Expose val id: String = "",
+        @SerializedName("created_at") val createdAt: String,
         @Expose val width: Int = 0,
         @Expose val height: Int = 0,
         @Expose val description: String? = null,
@@ -18,9 +23,13 @@ data class Photo(
 
     fun getRealmVersion(): RealmPhoto {
 
+        val unixTime = Instant.parse(createdAt).epochSecond
+
         val descriptionCheck = description?:""
 
         val photoUser = RealmPhotoUser(user?.name?:"", user?.links?.html?:"")
+
+        val cacheAge: Int = Instant.now().epochSecond.toInt()
 
         val realmUrls = RealmPhotoUrls(
                 urls?.raw?:"",
@@ -30,6 +39,15 @@ data class Photo(
                 urls?.thumb?:""
         )
 
-        return RealmPhoto(id = id, width = width, height = height, description = descriptionCheck, user = photoUser, urls = realmUrls)
+        return RealmPhoto(
+                id = id,
+                unixTime = unixTime,
+                width = width,
+                height = height,
+                description = descriptionCheck,
+                user = photoUser,
+                urls = realmUrls,
+                cacheAge = cacheAge
+        )
     }
 }
