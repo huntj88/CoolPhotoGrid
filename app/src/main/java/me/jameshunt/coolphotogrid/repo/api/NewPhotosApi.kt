@@ -11,6 +11,7 @@ import me.jameshunt.coolphotogrid.repo.UnsplashService
 import me.jameshunt.coolphotogrid.repo.network.photo.Photo
 import me.jameshunt.coolphotogrid.repo.realm.RealmPhoto
 import org.threeten.bp.Instant
+import timber.log.Timber
 
 /**
  * Created by James on 10/5/2017.
@@ -26,12 +27,14 @@ class NewPhotosAccumulator(private val unsplashService: UnsplashService, private
 
         val photosCache = getPhotosFromRealm()
 
-        return when(photosCache == null) {
+        Timber.i("photo cache size: " + photosCache?.size)
+
+        return when(photosCache.size == 0) {
             true -> {
                 webRequest()
             }
             false -> {
-                checkCacheAge(photosCache!!)
+                checkCacheAge(photosCache)
             }
         }
 
@@ -47,7 +50,7 @@ class NewPhotosAccumulator(private val unsplashService: UnsplashService, private
                 .observeOn(Schedulers.computation())
                 .map { saveNetworkPhotos(it) }
                 .observeOn(AndroidSchedulers.mainThread())
-                .map { wrapInApi(getPhotosFromRealm()!!) }
+                .map { wrapInApi(getPhotosFromRealm()) }
     }
 
     private fun checkCacheAge(photosCache: RealmResults<RealmPhoto>): Single<BaseApi> {
@@ -81,7 +84,7 @@ class NewPhotosAccumulator(private val unsplashService: UnsplashService, private
     }
 
 
-    private fun getPhotosFromRealm(): RealmResults<RealmPhoto>? {
+    private fun getPhotosFromRealm(): RealmResults<RealmPhoto> {
         return realmInstanceManager.getRealm().where(RealmPhoto::class.java).findAllSorted("unixTime",Sort.DESCENDING)
     }
 

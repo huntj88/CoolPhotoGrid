@@ -25,6 +25,7 @@ class BrowsePresenter(
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun viewLoaded() {
+        Timber.i("browse view loaded")
         observeNewPhotosRequest()
         newPhotosEmitter.emitter.onNext(RxNewPhotos())
     }
@@ -35,7 +36,7 @@ class BrowsePresenter(
                 onNext = {
                     listenForApiData(apiFactory.getApi(it))
                 },
-                onError = {},
+                onError = { it.printStackTrace() },
                 onComplete = {}
 
         )

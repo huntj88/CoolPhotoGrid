@@ -31,7 +31,7 @@ class PageModule {
 
     @PageScope
     @Provides
-    fun getBrowseModel(): BrowseModel {
+    fun getBrowseModel(): BrowseContract.Model {
         return BrowseModel()
     }
 }
