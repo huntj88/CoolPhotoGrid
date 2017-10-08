@@ -76,7 +76,7 @@ class BrowsePresenter(
             0 -> GridViewType.ONE.viewID
             1 -> GridViewType.TWO.viewID
             2 -> GridViewType.THREE.viewID
-            3 -> GridViewType.TWO.viewID
+            3 -> GridViewType.FOUR.viewID
             else -> {
                 throw NotImplementedError("not implemented yet")
             }
@@ -128,28 +128,23 @@ class BrowsePresenter(
 
         return when(gridViewType){
             GridViewType.ONE -> {
-                /*val photo1 = currentApi.photos[position * 2]
-                val photo2 = currentApi.photos[position * 2 + 1]*/
+
+                //Timber.i("index of photo" + (position * 11 / 4))
+                //Timber.i("index of photo" + (position * 11 / 4 + 1))
+
 
                 val photo1 = checkIfImageAvailable(photos, position * 2)
                 val photo2 = checkIfImageAvailable(photos, position * 2 + 1)
                 GridData(listOf(photo1, photo2))
-                //GridOneData(photo1, photo2)
             }
             else -> {
-
-                Timber.i("position of viewHolder: " + position)
-
-                /*val photo1 = currentApi.photos[position * 3]
-                val photo2 = currentApi.photos[position * 3 + 1]
-                val photo3 = currentApi.photos[position * 3 + 2]
-                GridTwoData(photo1, photo2, photo3)*/
-
+                //Timber.i("index of photo" + (position * 11 / 4))
+                //Timber.i("index of photo" + (position * 11 / 4 + 1))
+                //Timber.i("index of photo" + (position * 11 / 4 + 2))
 
                 val photo1 = checkIfImageAvailable(photos, position * 3)
                 val photo2 = checkIfImageAvailable(photos, position * 3 + 1)
                 val photo3 = checkIfImageAvailable(photos, position * 3 + 2)
-                //GridTwoData(photo1, photo2, photo3)
                 GridData(listOf(photo1, photo2, photo3))
             }
         }

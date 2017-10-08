@@ -17,8 +17,8 @@ class ImageGridOne(itemView: View): AdapterContract.ViewHolder(itemView) {
         }
 
 
-        FrescoHelper.setImages(data.photos[0]?.urls?.thumb, itemView.left_image)
-        FrescoHelper.setImages(data.photos[1]?.urls?.thumb, itemView.right_image)
+        FrescoHelper.setImages(data.photos[0]?.urls?.small, itemView.left_image)
+        FrescoHelper.setImages(data.photos[1]?.urls?.small, itemView.right_image)
 
     }
 }

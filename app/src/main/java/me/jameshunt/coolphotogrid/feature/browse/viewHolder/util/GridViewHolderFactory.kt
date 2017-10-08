@@ -3,6 +3,7 @@ package me.jameshunt.coolphotogrid.feature.browse.viewHolder.util
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import me.jameshunt.coolphotogrid.feature.browse.viewHolder.ImageGridFour
 import me.jameshunt.coolphotogrid.feature.browse.viewHolder.ImageGridOne
 import me.jameshunt.coolphotogrid.feature.browse.viewHolder.ImageGridThree
 import me.jameshunt.coolphotogrid.feature.browse.viewHolder.ImageGridTwo
@@ -30,6 +31,7 @@ class GridViewHolderFactory: AdapterContract.ViewHolderFactory<GridViewType> {
             GridViewType.ONE -> ImageGridOne(view)
             GridViewType.TWO -> ImageGridTwo(view)
             GridViewType.THREE -> ImageGridThree(view)
+            GridViewType.FOUR -> ImageGridFour(view)
         }
     }
 }

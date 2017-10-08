@@ -36,13 +36,18 @@ enum class GridViewType(override val viewID: Int, override val layout: Int): Ada
             setHeight(right, widthOfScreen /3)
         }
     },
-    THREE(2, R.layout.image_grid_three2) {
+    THREE(2, R.layout.image_grid_three) {
+        override fun extraViewOperations(view: View) {
+            val widthOfScreen = view.context.resources.displayMetrics.widthPixels
+            setHeight(view, widthOfScreen / 3 * 2)
+        }
+    },
+    FOUR(3, R.layout.image_grid_four) {
         override fun extraViewOperations(view: View) {
             val widthOfScreen = view.context.resources.displayMetrics.widthPixels
             setHeight(view, widthOfScreen / 3 * 2)
         }
     };
-    //FOUR(3, R.layout.image_grid_one)*/
 
 
     protected fun setHeight(view: View, width: Int) {
