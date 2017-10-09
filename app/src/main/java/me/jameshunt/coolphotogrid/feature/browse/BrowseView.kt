@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.browse_layout.view.*
 import me.jameshunt.coolphotogrid.di.page.PageComponent
 import me.jameshunt.coolphotogrid.feature.recycler.AdapterContract
 import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * Created by James on 10/5/2017.
@@ -20,6 +21,7 @@ class BrowseView : ConstraintLayout, BrowseContract.View {
     override lateinit var presenter: BrowseContract.Presenter
 
     @Inject
+    @field:[Named ("browse")]
     lateinit var adapter: AdapterContract.Adapter
 
 

@@ -1,8 +1,8 @@
 package me.jameshunt.coolphotogrid.repo
 
 import io.reactivex.Single
-import me.jameshunt.coolphotogrid.repo.network.category.Category
-import me.jameshunt.coolphotogrid.repo.network.photo.Photo
+import me.jameshunt.coolphotogrid.repo.network.unsplash.Collection
+import me.jameshunt.coolphotogrid.repo.network.unsplash.photo.Photo
 import retrofit2.http.GET
 
 /**
@@ -13,9 +13,11 @@ interface UnsplashService {
     @GET("/photos")
     fun getNewPhotos(): Single<List<Photo>>
 
-    @GET("/categories")
-    fun getCategories(): Single<List<Category>>
 
-    @GET("/categories/6/photos")
-    fun getCategoryPhotos(): Single<List<Photo>>
+
+    @GET("/collections/featured")
+    fun getCollections(): Single<List<Collection>>
+
+
+
 }

@@ -6,7 +6,8 @@ import me.jameshunt.coolphotogrid.feature.activity.ActivityContract
 import me.jameshunt.coolphotogrid.feature.activity.ActivityPresenter
 import me.jameshunt.coolphotogrid.repo.RealmInstanceManager
 import me.jameshunt.coolphotogrid.repo.UnsplashService
-import me.jameshunt.coolphotogrid.repo.api.ApiFactory
+import me.jameshunt.coolphotogrid.repo.api.album.SelectAlbumApiFactory
+import me.jameshunt.coolphotogrid.repo.api.photo.PhotoApiFactory
 
 /**
  * Created by James on 10/5/2017.
@@ -23,7 +24,13 @@ class ActivityModule {
 
     @ActivityScope
     @Provides
-    fun getApiFactory(unsplashService: UnsplashService, realmInstanceManager: RealmInstanceManager): ApiFactory {
-        return ApiFactory(unsplashService, realmInstanceManager)
+    fun getPhotoApiFactory(unsplashService: UnsplashService, realmInstanceManager: RealmInstanceManager): PhotoApiFactory {
+        return PhotoApiFactory(unsplashService, realmInstanceManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun getSelectAlbumApiFactory(unsplashService: UnsplashService, realmInstanceManager: RealmInstanceManager): SelectAlbumApiFactory {
+        return SelectAlbumApiFactory(unsplashService, realmInstanceManager)
     }
 }

@@ -1,4 +1,4 @@
-package me.jameshunt.coolphotogrid.feature.browse.viewHolder.util
+package me.jameshunt.coolphotogrid
 
 import android.net.Uri
 import com.facebook.drawee.backends.pipeline.Fresco

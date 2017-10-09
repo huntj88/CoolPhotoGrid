@@ -7,7 +7,7 @@ import me.jameshunt.coolphotogrid.repo.realm.RealmPhoto
 /**
  * Created by James on 10/5/2017.
  */
-/*photos class RxData(
+/*data class RxData(
         val id: BaseApi.API,
         val realmPhotos: RealmResults<RealmPhoto>,
         val index: Int = 0
@@ -20,7 +20,7 @@ interface RxData {
 }
 
 
-// multiple photos classes needed?
+// multiple data classes needed?
 
 
 // one for RxNewImages

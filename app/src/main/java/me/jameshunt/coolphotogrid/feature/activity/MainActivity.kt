@@ -36,8 +36,8 @@ class MainActivity : AppCompatActivity(), ActivityContract.View {
 
     private fun setupSlide() {
 
-        bottomSlideData = SlideDataBottom(mainView = viewer_layout, secondaryView = album_layout)
-        topSlideData = SlideDataTop(mainView = album_layout, secondaryView = viewer_layout)
+        bottomSlideData = SlideDataBottom(mainView = viewer_layout, secondaryView = album_view)
+        topSlideData = SlideDataTop(mainView = album_view, secondaryView = viewer_layout)
 
         slide_handle_bottom.setOnTouchListener { _, motionEvent ->
             touchListener(motionEvent, bottomSlideData)

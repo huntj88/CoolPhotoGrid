@@ -1,4 +1,4 @@
-package me.jameshunt.coolphotogrid.repo.network.photo
+package me.jameshunt.coolphotogrid.repo.network.unsplash.photo
 
 import com.google.gson.annotations.Expose
 

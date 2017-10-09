@@ -1,6 +1,9 @@
 package me.jameshunt.coolphotogrid.feature.album
 
+import me.jameshunt.coolphotogrid.feature.album.viewHolder.AlbumViewType
 import me.jameshunt.coolphotogrid.feature.recycler.AdapterContract
+import me.jameshunt.coolphotogrid.repo.api.BaseApi
+import me.jameshunt.coolphotogrid.repo.realm.RealmCollection
 
 /**
  * Created by James on 10/8/2017.
@@ -13,7 +16,7 @@ interface AlbumContract {
     }
 
     interface Model {
-
+        var currentApi: BaseApi<RealmCollection>?
     }
 
     interface Presenter: AdapterContract.Presenter<AlbumViewType> {

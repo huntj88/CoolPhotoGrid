@@ -10,7 +10,7 @@ import me.jameshunt.coolphotogrid.feature.recycler.AdapterContract
 import me.jameshunt.coolphotogrid.feature.rx.RxCommunicatorContract
 import me.jameshunt.coolphotogrid.feature.rx.data.RxNewPhotos
 import me.jameshunt.coolphotogrid.repo.api.BaseApi
-import me.jameshunt.coolphotogrid.repo.api.ApiFactory
+import me.jameshunt.coolphotogrid.repo.api.photo.PhotoApiFactory
 import me.jameshunt.coolphotogrid.repo.realm.RealmPhoto
 import timber.log.Timber
 
@@ -22,7 +22,7 @@ class BrowsePresenter(
 
         private val newPhotosObserver: RxCommunicatorContract.Observer<RxNewPhotos>,
         private val newPhotosEmitter: RxCommunicatorContract.Emitter<RxNewPhotos>,
-        private val apiFactory: ApiFactory,
+        private val apiFactory: PhotoApiFactory,
         private val browseModel: BrowseContract.Model
 
 ) : BrowseContract.Presenter {
@@ -52,7 +52,7 @@ class BrowsePresenter(
     }
 
 
-    private fun listenForApiData(api: Single<BaseApi>) {
+    private fun listenForApiData(api: Single<BaseApi<RealmPhoto>>) {
         api.subscribeBy(
                 onError = { it.printStackTrace() },
                 onSuccess = {
@@ -90,7 +90,7 @@ class BrowsePresenter(
 
         // temp setup
 
-        val numPhotos = browseModel.currentApi?.photos?.size?:0
+        val numPhotos = browseModel.currentApi?.data?.size?:0
 
         val numPhotosRemainder = numPhotos % 11
         val numPhotosDivide = numPhotos / 11
@@ -124,7 +124,7 @@ class BrowsePresenter(
 
         val gridViewType = GridViewType.fromInt(getItemViewType(position))
         val currentApi = browseModel.currentApi?: throw UnsupportedOperationException("this should never happen")
-        val photos = currentApi.photos
+        val photos = currentApi.data
 
 
         /**

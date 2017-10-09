@@ -2,7 +2,7 @@ package me.jameshunt.coolphotogrid.feature.browse.viewHolder
 
 import android.view.View
 import kotlinx.android.synthetic.main.image_grid_four.view.*
-import me.jameshunt.coolphotogrid.feature.browse.viewHolder.util.FrescoHelper
+import me.jameshunt.coolphotogrid.FrescoHelper
 import me.jameshunt.coolphotogrid.feature.browse.viewHolder.util.GridData
 import me.jameshunt.coolphotogrid.feature.recycler.AdapterContract
 import timber.log.Timber
