@@ -126,6 +126,15 @@ class BrowsePresenter(
         val currentApi = browseModel.currentApi?: throw UnsupportedOperationException("this should never happen")
         val photos = currentApi.photos
 
+
+        /**
+         *
+         *  position * 11 / 4
+         *
+         *  11 images that can be displayed within 4 viewHolders
+         *
+         */
+
         return when(gridViewType){
             GridViewType.ONE -> {
 
@@ -133,8 +142,8 @@ class BrowsePresenter(
                 //Timber.i("index of photo" + (position * 11 / 4 + 1))
 
 
-                val photo1 = checkIfImageAvailable(photos, position * 2)
-                val photo2 = checkIfImageAvailable(photos, position * 2 + 1)
+                val photo1 = checkIfImageAvailable(photos, position * 11 / 4)
+                val photo2 = checkIfImageAvailable(photos, position * 11 / 4 + 1)
                 GridData(listOf(photo1, photo2))
             }
             else -> {
@@ -142,9 +151,9 @@ class BrowsePresenter(
                 //Timber.i("index of photo" + (position * 11 / 4 + 1))
                 //Timber.i("index of photo" + (position * 11 / 4 + 2))
 
-                val photo1 = checkIfImageAvailable(photos, position * 3)
-                val photo2 = checkIfImageAvailable(photos, position * 3 + 1)
-                val photo3 = checkIfImageAvailable(photos, position * 3 + 2)
+                val photo1 = checkIfImageAvailable(photos, position * 11 / 4)
+                val photo2 = checkIfImageAvailable(photos, position * 11 / 4 + 1)
+                val photo3 = checkIfImageAvailable(photos, position * 11 / 4 + 2)
                 GridData(listOf(photo1, photo2, photo3))
             }
         }
@@ -154,7 +163,7 @@ class BrowsePresenter(
 
     }
 
-    fun checkIfImageAvailable(photos: RealmResults<RealmPhoto>, index: Int): RealmPhoto? {
+    private fun checkIfImageAvailable(photos: RealmResults<RealmPhoto>, index: Int): RealmPhoto? {
 
         if(photos.size > index)
             return photos[index]

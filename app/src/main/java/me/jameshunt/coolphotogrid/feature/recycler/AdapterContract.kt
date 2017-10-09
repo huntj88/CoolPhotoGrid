@@ -15,6 +15,12 @@ interface AdapterContract {
 
     }
 
+    interface AdapterView {
+        fun updateRecycler()
+        fun showLoadingAnimation()
+        fun hideLoadingAnimation()
+    }
+
     interface Presenter<out Types: ViewTypeEnum> {
         fun getItemViewType(position: Int): Int
         fun getItemCount(): Int
@@ -27,6 +33,7 @@ interface AdapterContract {
     }
 
 
+    // dagger needs this to not be "in"
     interface ViewHolderFactory<Types: ViewTypeEnum> {
         fun createViewHolder(parent: ViewGroup, viewType: Types): ViewHolder
     }

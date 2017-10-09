@@ -10,12 +10,8 @@ import me.jameshunt.coolphotogrid.repo.api.BaseApi
  */
 interface BrowseContract {
 
-    interface View {
+    interface View: AdapterContract.AdapterView {
         var presenter: Presenter
-        fun updateRecycler()
-        fun showLoadingAnimation()
-        fun hideLoadingAnimation()
-
     }
 
     interface Model {
@@ -23,11 +19,7 @@ interface BrowseContract {
     }
 
     interface Presenter: AdapterContract.Presenter<GridViewType> {
-        //val newPhotosObserver: RxCommunicatorContract.Observer<RxNewPhotos>
-        //val newPhotosEmitter: RxCommunicatorContract.Emitter<RxNewPhotos>
-
         var view: View
-
 
         fun viewLoaded()
     }
