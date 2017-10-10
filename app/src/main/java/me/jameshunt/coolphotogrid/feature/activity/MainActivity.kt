@@ -1,8 +1,8 @@
 package me.jameshunt.coolphotogrid.feature.activity
 
 import android.animation.ValueAnimator
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.MotionEvent
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.album_layout.*

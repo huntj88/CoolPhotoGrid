@@ -7,14 +7,14 @@ import me.jameshunt.coolphotogrid.feature.rx.RxCommunicatorContract
 import me.jameshunt.coolphotogrid.feature.rx.data.RxAlbumData
 import me.jameshunt.coolphotogrid.feature.rx.data.RxNewPhotos
 import me.jameshunt.coolphotogrid.repo.api.album.SelectAlbumApiFactory
-import me.jameshunt.coolphotogrid.repo.api.photo.PhotoApiFactory
+import me.jameshunt.coolphotogrid.repo.api.photo.newPhotos.PhotoApiFactory
 
 /**
  * Created by James on 10/5/2017.
  */
 
 @ActivityScope
-@Component(modules = arrayOf(ActivityModule::class, RealmModule::class), dependencies = arrayOf(AppComponent::class))
+@Component(modules = arrayOf(ActivityModule::class), dependencies = arrayOf(AppComponent::class))
 interface ActivityComponent {
 
     fun getNewPhotosRxObserver(): RxCommunicatorContract.Observer<RxNewPhotos>

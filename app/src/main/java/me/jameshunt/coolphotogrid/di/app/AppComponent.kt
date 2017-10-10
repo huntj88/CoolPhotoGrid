@@ -5,6 +5,7 @@ import me.jameshunt.coolphotogrid.feature.activity.ActivityContract
 import me.jameshunt.coolphotogrid.feature.rx.RxCommunicatorContract
 import me.jameshunt.coolphotogrid.feature.rx.data.RxAlbumData
 import me.jameshunt.coolphotogrid.feature.rx.data.RxNewPhotos
+import me.jameshunt.coolphotogrid.repo.RealmInstanceManager
 import me.jameshunt.coolphotogrid.repo.UnsplashService
 import javax.inject.Singleton
 
@@ -12,7 +13,7 @@ import javax.inject.Singleton
  * Created by James on 10/4/2017.
  */
 @Singleton
-@Component(modules = arrayOf(AppModule::class, NetworkModule::class))
+@Component(modules = arrayOf(AppModule::class, NetworkModule::class, RealmModule::class))
 interface AppComponent {
 
     fun getNewPhotosRxObserver(): RxCommunicatorContract.Observer<RxNewPhotos>
@@ -20,6 +21,8 @@ interface AppComponent {
 
     fun getAlbumClickedRxObserver(): RxCommunicatorContract.Observer<RxAlbumData>
     fun getAlbumClickedRxEmitter(): RxCommunicatorContract.Emitter<RxAlbumData>
+
+    fun getRealmInstanceManager(): RealmInstanceManager
 
 
     fun getUnsplashService(): UnsplashService

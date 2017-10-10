@@ -9,7 +9,7 @@ import me.jameshunt.coolphotogrid.feature.rx.data.RxAlbumData
 import me.jameshunt.coolphotogrid.repo.RealmInstanceManager
 import me.jameshunt.coolphotogrid.repo.UnsplashService
 import me.jameshunt.coolphotogrid.repo.api.album.SelectAlbumApiFactory
-import me.jameshunt.coolphotogrid.repo.api.photo.PhotoApiFactory
+import me.jameshunt.coolphotogrid.repo.api.photo.newPhotos.PhotoApiFactory
 
 /**
  * Created by James on 10/5/2017.

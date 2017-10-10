@@ -45,14 +45,19 @@ class AlbumView : ConstraintLayout, AlbumContract.View {
         album_recycle.addItemDecoration(dividerDecoration)
 
         presenter.viewLoaded()
+        requestMoreWhenNecessary()
     }
 
 
-    override fun updateRecycler() {
+    override fun refreshRecycler() {
         if (album_recycle.adapter == null)
             album_recycle.adapter = adapter as RecyclerView.Adapter<*>
         else
             (adapter as RecyclerView.Adapter<*>).notifyDataSetChanged()
+    }
+
+    override fun insertItemsRecycler(startIndex: Int, count: Int) {
+        (adapter as RecyclerView.Adapter<*>).notifyItemRangeInserted(startIndex, count)
     }
 
     override fun showLoadingAnimation() {
@@ -61,6 +66,28 @@ class AlbumView : ConstraintLayout, AlbumContract.View {
 
     override fun hideLoadingAnimation() {
 
+    }
+
+    private fun requestMoreWhenNecessary() {
+
+        album_recycle.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val lastVisible = layoutManager.findLastVisibleItemPosition()
+                val cellHeight = recyclerView.findViewHolderForLayoutPosition(lastVisible).itemView.height
+
+
+                val heightToReload = ((layoutManager.itemCount - 10) * cellHeight)
+
+                if(lastVisible * cellHeight > heightToReload)
+                    presenter.requestMore()
+
+            }
+
+        })
     }
 
 

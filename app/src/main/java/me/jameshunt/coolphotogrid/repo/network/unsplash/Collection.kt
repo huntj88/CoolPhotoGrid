@@ -2,6 +2,7 @@ package me.jameshunt.coolphotogrid.repo.network.unsplash
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import io.realm.RealmList
 import me.jameshunt.coolphotogrid.repo.network.unsplash.photo.Photo
 import me.jameshunt.coolphotogrid.repo.realm.RealmCollection
 
@@ -15,13 +16,18 @@ class Collection (
         @SerializedName("cover_photo") val coverPhoto: Photo
 ) {
 
+    var pageNum: Int = 1
+    // set in okhttp interceptor
 
     fun getRealmVersion(): RealmCollection {
         return RealmCollection(
                 id = id,
                 title = title,
                 numPhotos = numPhotos,
-                coverPhoto = coverPhoto.getRealmVersion()
+                coverPhoto = coverPhoto.getRealmVersion(),
+                photos = RealmList(),
+                page = pageNum
+
         )
     }
 }

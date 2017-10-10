@@ -9,4 +9,7 @@ import me.jameshunt.coolphotogrid.repo.realm.RealmCollection
 class AlbumModel: AlbumContract.Model {
 
     override var currentApi: BaseApi<RealmCollection>? = null
+
+    override var canRequestMore: Boolean = false
+    override var amountBeforeRequest: Int = 0
 }

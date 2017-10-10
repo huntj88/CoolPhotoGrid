@@ -18,7 +18,7 @@ class SelectAlbumApiFactory(private val unsplashService: UnsplashService, privat
 
         return when(data) {
             is RxUnsplashSelectAlbumData -> {
-                buildUnsplashSelectAlbumApi()
+                buildUnsplashSelectAlbumApi(data)
             }
             else -> {
                 throw NotImplementedError("not implemented yet")
@@ -28,9 +28,10 @@ class SelectAlbumApiFactory(private val unsplashService: UnsplashService, privat
     }
 
 
-    private fun buildUnsplashSelectAlbumApi(): Single<BaseApi<RealmCollection>> {
+    //todo: finish requesting more data. need to send rxUnspashSelectAlbumData to accumulator
+    private fun buildUnsplashSelectAlbumApi(data: RxUnsplashSelectAlbumData): Single<BaseApi<RealmCollection>> {
         val accumulator = UnsplashSelectAlbumAccumulator(unsplashService, realmInstanceManager)
-        return accumulator.getDataFromRepo()
+        return accumulator.getDataFromRepo(data)
                 .map {
                     SelectAlbumApi(
                             it,

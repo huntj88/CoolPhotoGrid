@@ -17,10 +17,15 @@ interface AlbumContract {
 
     interface Model {
         var currentApi: BaseApi<RealmCollection>?
+
+        var canRequestMore: Boolean
+        var amountBeforeRequest: Int
     }
 
     interface Presenter: AdapterContract.Presenter<AlbumViewType> {
         var view: View
+
         fun viewLoaded()
+        fun requestMore()
     }
 }

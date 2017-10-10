@@ -1,6 +1,5 @@
 package me.jameshunt.coolphotogrid.feature.browse.viewHolder.util
 
-import io.realm.Realm
 import me.jameshunt.coolphotogrid.feature.recycler.AdapterContract
 import me.jameshunt.coolphotogrid.repo.realm.RealmPhoto
 

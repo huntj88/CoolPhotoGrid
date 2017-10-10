@@ -16,7 +16,8 @@ interface AdapterContract {
     }
 
     interface AdapterView {
-        fun updateRecycler()
+        fun refreshRecycler()
+        fun insertItemsRecycler(startIndex: Int, count: Int)
         fun showLoadingAnimation()
         fun hideLoadingAnimation()
     }

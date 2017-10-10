@@ -4,6 +4,7 @@ import android.app.Application
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.squareup.leakcanary.LeakCanary
 import io.realm.Realm
+import io.realm.RealmConfiguration
 import me.jameshunt.coolphotogrid.di.app.AppComponent
 import me.jameshunt.coolphotogrid.di.app.AppModule
 import me.jameshunt.coolphotogrid.di.app.DaggerAppComponent
@@ -19,7 +20,8 @@ class CoolApplication: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Realm.init(this)
+        setupRealm()
+
         Fresco.initialize(this)
 
         if (BuildConfig.DEBUG) {
@@ -40,5 +42,17 @@ class CoolApplication: Application() {
             return
         }
         LeakCanary.install(this)
+    }
+
+
+    private fun setupRealm() {
+        Realm.init(this)
+
+        val config = RealmConfiguration.Builder()
+                .name("coolPhotoGrid.realm")
+                .inMemory()
+                .build()
+
+        Realm.setDefaultConfiguration(config)
     }
 }

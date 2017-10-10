@@ -21,17 +21,36 @@ class AlbumPresenter(private val albumClickedEmitter: RxCommunicatorContract.Emi
         listenForApiData()
     }
 
-    private fun listenForApiData() {
-        selectAlbumApiFactory.getApi(RxUnsplashSelectAlbumData()).subscribeBy(
+    private fun listenForApiData(requestMore: Boolean = false) {
+
+        model.canRequestMore = false
+
+        selectAlbumApiFactory.getApi(RxUnsplashSelectAlbumData(requestMore)).subscribeBy(
                 onError = { it.printStackTrace() },
                 onSuccess = {
+                    val numBefore = model.amountBeforeRequest
                     model.currentApi = it
+                    val numAfter = model.currentApi?.data?.size?: 0
+
                     Timber.i("api in album has been updated")
                     Timber.i("album num: " + it.data.size)
-                    view.updateRecycler()
-                    view.hideLoadingAnimation()
+
+                    if(numBefore == 0) {
+                        view.refreshRecycler()
+                        view.hideLoadingAnimation()
+                    } else {
+                        view.insertItemsRecycler(numBefore, numAfter - numBefore)
+                    }
+
+                    model.amountBeforeRequest = numAfter
+                    model.canRequestMore = true
                 }
         )
+    }
+
+    override fun requestMore() {
+        if(model.canRequestMore)
+            listenForApiData(true)
     }
 
     override fun getItemViewType(position: Int): Int {

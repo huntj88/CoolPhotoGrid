@@ -1,8 +1,9 @@
-package me.jameshunt.coolphotogrid.di.activity
+package me.jameshunt.coolphotogrid.di.app
 
 import dagger.Module
 import dagger.Provides
 import me.jameshunt.coolphotogrid.repo.RealmInstanceManager
+import javax.inject.Singleton
 
 /**
  * Created by James on 10/5/2017.
@@ -11,7 +12,7 @@ import me.jameshunt.coolphotogrid.repo.RealmInstanceManager
 class RealmModule {
 
     @Provides
-    @ActivityScope
+    @Singleton
     fun getUIRealm(): RealmInstanceManager {
         return RealmInstanceManager()
     }

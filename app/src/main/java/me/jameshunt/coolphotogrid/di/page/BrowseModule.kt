@@ -12,7 +12,7 @@ import me.jameshunt.coolphotogrid.feature.recycler.AdapterContract
 import me.jameshunt.coolphotogrid.feature.rx.RxCommunicatorContract
 import me.jameshunt.coolphotogrid.feature.rx.data.RxAlbumData
 import me.jameshunt.coolphotogrid.feature.rx.data.RxNewPhotos
-import me.jameshunt.coolphotogrid.repo.api.photo.PhotoApiFactory
+import me.jameshunt.coolphotogrid.repo.api.photo.newPhotos.PhotoApiFactory
 import javax.inject.Named
 
 /**

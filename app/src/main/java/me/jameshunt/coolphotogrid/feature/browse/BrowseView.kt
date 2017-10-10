@@ -38,12 +38,16 @@ class BrowseView : ConstraintLayout, BrowseContract.View {
         presenter.viewLoaded()
     }
 
-    override fun updateRecycler() {
+    override fun refreshRecycler() {
 
         if (browse_recycle.adapter == null)
             browse_recycle.adapter = adapter as RecyclerView.Adapter<*>
         else
             (adapter as RecyclerView.Adapter<*>).notifyDataSetChanged()
+    }
+
+    override fun insertItemsRecycler(startIndex: Int, count: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun showLoadingAnimation() {

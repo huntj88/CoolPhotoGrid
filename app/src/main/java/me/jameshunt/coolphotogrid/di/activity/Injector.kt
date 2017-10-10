@@ -4,8 +4,8 @@ import kotlinx.android.synthetic.main.album_layout.*
 import kotlinx.android.synthetic.main.browse_layout.*
 import me.jameshunt.coolphotogrid.CoolApplication
 import me.jameshunt.coolphotogrid.di.page.AlbumModule
-import me.jameshunt.coolphotogrid.di.page.DaggerPageComponent
 import me.jameshunt.coolphotogrid.di.page.BrowseModule
+import me.jameshunt.coolphotogrid.di.page.DaggerPageComponent
 import me.jameshunt.coolphotogrid.feature.activity.MainActivity
 
 /**

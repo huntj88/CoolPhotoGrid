@@ -1,4 +1,4 @@
-package me.jameshunt.coolphotogrid.repo.api.photo
+package me.jameshunt.coolphotogrid.repo.api.photo.newPhotos
 
 import io.reactivex.Single
 import me.jameshunt.coolphotogrid.feature.rx.RxData

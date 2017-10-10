@@ -11,7 +11,7 @@ import me.jameshunt.coolphotogrid.feature.rx.RxCommunicatorContract
 import me.jameshunt.coolphotogrid.feature.rx.data.RxAlbumData
 import me.jameshunt.coolphotogrid.feature.rx.data.RxNewPhotos
 import me.jameshunt.coolphotogrid.repo.api.BaseApi
-import me.jameshunt.coolphotogrid.repo.api.photo.PhotoApiFactory
+import me.jameshunt.coolphotogrid.repo.api.photo.newPhotos.PhotoApiFactory
 import me.jameshunt.coolphotogrid.repo.realm.RealmPhoto
 import timber.log.Timber
 
@@ -76,7 +76,7 @@ class BrowsePresenter(
                 onSuccess = {
                     browseModel.currentApi = it
                     Timber.i("api in browse has been updated")
-                    view.updateRecycler()
+                    view.refreshRecycler()
                     view.hideLoadingAnimation()
                 }
         )

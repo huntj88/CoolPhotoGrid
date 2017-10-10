@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import me.jameshunt.coolphotogrid.repo.HeaderInterceptor
 import me.jameshunt.coolphotogrid.repo.UnsplashService
+import me.jameshunt.coolphotogrid.repo.network.unsplash.interceptors.HeaderFieldInjectorInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -29,6 +30,7 @@ class NetworkModule {
         val httpClient = OkHttpClient.Builder()
 
         httpClient.addInterceptor(HeaderInterceptor())
+        httpClient.addInterceptor(HeaderFieldInjectorInterceptor())
 
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BASIC
