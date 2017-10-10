@@ -1,5 +1,6 @@
 package me.jameshunt.coolphotogrid.feature.activity
 
+import me.jameshunt.coolphotogrid.feature.activity.slide.data.SlideData
 import me.jameshunt.coolphotogrid.feature.rx.RxCommunicatorContract
 import me.jameshunt.coolphotogrid.feature.rx.data.RxNewPhotos
 
@@ -17,6 +18,8 @@ class ActivityContract {
 
     interface Model {
         val newPhotosEmitter: RxCommunicatorContract.Emitter<RxNewPhotos>
+        val modelHolder: ModelHolder
+        fun canAlbumSlideUp(): Boolean
     }
 
     interface Presenter {
@@ -25,5 +28,6 @@ class ActivityContract {
 
         fun setupAndWait()
         fun destroy()
+        fun canSlide(slideLocation: SlideData.SlideLocation): Boolean
     }
 }

@@ -2,6 +2,7 @@ package me.jameshunt.coolphotogrid.di.page
 
 import dagger.Module
 import dagger.Provides
+import me.jameshunt.coolphotogrid.feature.activity.ModelHolder
 import me.jameshunt.coolphotogrid.feature.browse.BrowseContract
 import me.jameshunt.coolphotogrid.feature.browse.BrowseModel
 import me.jameshunt.coolphotogrid.feature.browse.BrowsePresenter
@@ -37,8 +38,21 @@ class BrowseModule {
 
     @PageScope
     @Provides
-    fun getBrowseModel(): BrowseContract.Model {
-        return BrowseModel()
+    fun getBrowseModel(modelHolder: ModelHolder): BrowseContract.Model {
+
+        val model: BrowseContract.Model
+
+        return when(modelHolder.browseModel == null) {
+            true -> {
+                model = BrowseModel()
+                modelHolder.browseModel = model
+                model
+            }
+            false -> {
+                model = modelHolder.browseModel!!
+                model
+            }
+        }
     }
 
 

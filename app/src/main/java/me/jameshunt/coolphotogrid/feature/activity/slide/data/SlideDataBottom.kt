@@ -9,6 +9,8 @@ import me.jameshunt.coolphotogrid.feature.activity.slide.eval.SlideEval
  */
 class SlideDataBottom(mainView: View, secondaryView: View): SlideData(mainView = mainView, secondaryView = secondaryView) {
 
+    override var location: SlideLocation = SlideLocation.BOTTOM
+
     override fun fixOverlap() {
 
         secondaryView.layoutParams.height = closedHeight

@@ -11,6 +11,8 @@ import me.jameshunt.coolphotogrid.feature.activity.slide.eval.TopSlideHeightEval
 
 class SlideDataTop(mainView: View, secondaryView: View): SlideData(mainView = mainView, secondaryView = secondaryView) {
 
+    override var location: SlideLocation = SlideLocation.BOTTOM
+
     override fun fixOverlap() {
 
         val screenHeight = (mainView.parent as FrameLayout).height

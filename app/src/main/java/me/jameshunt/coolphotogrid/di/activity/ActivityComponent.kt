@@ -3,6 +3,7 @@ package me.jameshunt.coolphotogrid.di.activity
 import dagger.Component
 import me.jameshunt.coolphotogrid.di.app.AppComponent
 import me.jameshunt.coolphotogrid.feature.activity.MainActivity
+import me.jameshunt.coolphotogrid.feature.activity.ModelHolder
 import me.jameshunt.coolphotogrid.feature.rx.RxCommunicatorContract
 import me.jameshunt.coolphotogrid.feature.rx.data.RxAlbumData
 import me.jameshunt.coolphotogrid.feature.rx.data.RxNewPhotos
@@ -16,6 +17,8 @@ import me.jameshunt.coolphotogrid.repo.api.photo.newPhotos.PhotoApiFactory
 @ActivityScope
 @Component(modules = arrayOf(ActivityModule::class), dependencies = arrayOf(AppComponent::class))
 interface ActivityComponent {
+
+    fun getModelHolder(): ModelHolder
 
     fun getNewPhotosRxObserver(): RxCommunicatorContract.Observer<RxNewPhotos>
     fun getNewPhotosRxEmitter(): RxCommunicatorContract.Emitter<RxNewPhotos>

@@ -62,28 +62,33 @@ class MainActivity : AppCompatActivity(), ActivityContract.View {
     }
 
     private fun touchListener(motionEvent: MotionEvent, slideData: SlideData) {
-        when (motionEvent.action) {
-            MotionEvent.ACTION_DOWN -> {
 
-                slideData.yStart = motionEvent.rawY
-                slideData.lastY = motionEvent.rawY
-                slideData.currentHeight = slideData.mainView.height
+        if(presenter.canSlide(slideData.location) || true) {
 
+            when (motionEvent.action) {
+                MotionEvent.ACTION_DOWN -> {
+
+                    slideData.yStart = motionEvent.rawY
+                    slideData.lastY = motionEvent.rawY
+                    slideData.currentHeight = slideData.mainView.height
+
+                }
+                MotionEvent.ACTION_MOVE -> {
+
+                    slideData.followFinger(motionEvent.rawY.toInt())
+                    slideData.fixOverlap()
+
+                    directionDown = motionEvent.rawY > slideData.lastY
+                    slideData.lastY = motionEvent.rawY
+
+                }
+                MotionEvent.ACTION_CANCEL, MotionEvent.ACTION_UP -> {
+
+                    animateSlide(slideData)
+                }
+                else -> {
+                }
             }
-            MotionEvent.ACTION_MOVE -> {
-
-                slideData.followFinger(motionEvent.rawY.toInt())
-                slideData.fixOverlap()
-
-                directionDown = motionEvent.rawY > slideData.lastY
-                slideData.lastY = motionEvent.rawY
-
-            }
-            MotionEvent.ACTION_CANCEL, MotionEvent.ACTION_UP -> {
-
-                animateSlide(slideData)
-            }
-            else -> {}
         }
     }
 

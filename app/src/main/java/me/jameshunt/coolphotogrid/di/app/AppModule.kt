@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import me.jameshunt.coolphotogrid.feature.activity.ActivityContract
 import me.jameshunt.coolphotogrid.feature.activity.ActivityModel
+import me.jameshunt.coolphotogrid.feature.activity.ModelHolder
 import me.jameshunt.coolphotogrid.feature.rx.RxCommunicator
 import me.jameshunt.coolphotogrid.feature.rx.RxCommunicatorContract
 import me.jameshunt.coolphotogrid.feature.rx.data.RxAlbumData
@@ -19,8 +20,15 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun getActivityModel(initialDataEmitter: RxCommunicatorContract.Emitter<RxNewPhotos>): ActivityContract.Model {
-        return ActivityModel(initialDataEmitter)
+    fun getActivityModel(initialDataEmitter: RxCommunicatorContract.Emitter<RxNewPhotos>, modelHolder: ModelHolder): ActivityContract.Model {
+        return ActivityModel(initialDataEmitter, modelHolder)
+    }
+
+
+    @Singleton
+    @Provides
+    fun getModelHolder(): ModelHolder {
+        return ModelHolder()
     }
 
 

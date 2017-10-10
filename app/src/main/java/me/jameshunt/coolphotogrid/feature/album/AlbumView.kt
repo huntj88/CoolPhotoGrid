@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import kotlinx.android.synthetic.main.album_layout.view.*
+import me.jameshunt.coolphotogrid.Blur
 import me.jameshunt.coolphotogrid.R
 import me.jameshunt.coolphotogrid.di.page.PageComponent
 import me.jameshunt.coolphotogrid.feature.recycler.AdapterContract
@@ -46,6 +47,13 @@ class AlbumView : ConstraintLayout, AlbumContract.View {
 
         presenter.viewLoaded()
         requestMoreWhenNecessary()
+
+
+    }
+
+    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
+        super.onLayout(changed, left, top, right, bottom)
+        handle_shadow.setImageDrawable(Blur.applyBlur(ContextCompat.getDrawable(context,R.drawable.album_handle_shadow),context, handle_shadow.width, handle_shadow.height))
     }
 
 
@@ -77,13 +85,15 @@ class AlbumView : ConstraintLayout, AlbumContract.View {
 
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                 val lastVisible = layoutManager.findLastVisibleItemPosition()
-                val cellHeight = recyclerView.findViewHolderForLayoutPosition(lastVisible).itemView.height
+                val cellHeight = recyclerView.findViewHolderForLayoutPosition(lastVisible)?.itemView?.height?:0
 
 
-                val heightToReload = ((layoutManager.itemCount - 10) * cellHeight)
+                if(cellHeight != 0) {
+                    val heightToReload = ((layoutManager.itemCount - 10) * cellHeight)
 
-                if(lastVisible * cellHeight > heightToReload)
-                    presenter.requestMore()
+                    if (lastVisible * cellHeight > heightToReload)
+                        presenter.requestMore()
+                }
 
             }
 

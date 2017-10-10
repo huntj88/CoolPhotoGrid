@@ -7,7 +7,8 @@ import me.jameshunt.coolphotogrid.feature.rx.data.RxNewPhotos
  * Created by James on 10/5/2017.
  */
 class ActivityModel(
-        override val newPhotosEmitter: RxCommunicatorContract.Emitter<RxNewPhotos>
+        override val newPhotosEmitter: RxCommunicatorContract.Emitter<RxNewPhotos>,
+        override val modelHolder: ModelHolder
 ) : ActivityContract.Model {
 
                                     //first launch get categories too
@@ -30,6 +31,11 @@ class ActivityModel(
 
 
     //above comments are stupid.
+
+
+    override fun canAlbumSlideUp(): Boolean {
+        return modelHolder.browseModel?.currentApi != null
+    }
 
 
 

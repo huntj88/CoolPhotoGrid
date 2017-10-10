@@ -2,6 +2,7 @@ package me.jameshunt.coolphotogrid.di.page
 
 import dagger.Module
 import dagger.Provides
+import me.jameshunt.coolphotogrid.feature.activity.ModelHolder
 import me.jameshunt.coolphotogrid.feature.album.AlbumAdapter
 import me.jameshunt.coolphotogrid.feature.album.AlbumContract
 import me.jameshunt.coolphotogrid.feature.album.AlbumModel
@@ -35,8 +36,21 @@ class AlbumModule {
 
     @PageScope
     @Provides
-    fun getAlbumModel(): AlbumContract.Model {
-        return AlbumModel()
+    fun getAlbumModel(modelHolder: ModelHolder): AlbumContract.Model {
+
+        val model: AlbumContract.Model
+
+        return when(modelHolder.albumModel == null) {
+            true -> {
+                model = AlbumModel()
+                modelHolder.albumModel = model
+                model
+            }
+            false -> {
+                model = modelHolder.albumModel!!
+                model
+            }
+        }
     }
 
 

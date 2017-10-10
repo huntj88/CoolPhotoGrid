@@ -11,9 +11,10 @@ abstract class SlideData(
         var yStart: Float = 0f,
         var lastY: Float = 0f,
         var mainView: View,  //the one you can touch
-        var secondaryView: View  //the one that needs to move out of the way
+        var secondaryView: View //the one that needs to move out of the way
 ) {
 
+    abstract var location: SlideLocation
     val closedHeight = Dimensions.dpToPx(28).toInt()
     var currentHeight: Int = closedHeight
     
@@ -24,4 +25,9 @@ abstract class SlideData(
     abstract fun convertDirection(direction: Boolean): Boolean
 
     abstract fun getEvaluator(direction: Boolean): SlideEval
+
+    enum class SlideLocation {
+        TOP,
+        BOTTOM
+    }
 }

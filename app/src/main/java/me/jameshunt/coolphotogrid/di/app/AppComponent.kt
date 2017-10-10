@@ -2,6 +2,7 @@ package me.jameshunt.coolphotogrid.di.app
 
 import dagger.Component
 import me.jameshunt.coolphotogrid.feature.activity.ActivityContract
+import me.jameshunt.coolphotogrid.feature.activity.ModelHolder
 import me.jameshunt.coolphotogrid.feature.rx.RxCommunicatorContract
 import me.jameshunt.coolphotogrid.feature.rx.data.RxAlbumData
 import me.jameshunt.coolphotogrid.feature.rx.data.RxNewPhotos
@@ -23,6 +24,7 @@ interface AppComponent {
     fun getAlbumClickedRxEmitter(): RxCommunicatorContract.Emitter<RxAlbumData>
 
     fun getRealmInstanceManager(): RealmInstanceManager
+    fun getModelHolder(): ModelHolder
 
 
     fun getUnsplashService(): UnsplashService
