@@ -8,6 +8,7 @@ import me.jameshunt.coolphotogrid.feature.browse.viewHolder.util.GridData
 import me.jameshunt.coolphotogrid.feature.browse.viewHolder.util.GridViewType
 import me.jameshunt.coolphotogrid.feature.recycler.AdapterContract
 import me.jameshunt.coolphotogrid.feature.rx.RxCommunicatorContract
+import me.jameshunt.coolphotogrid.feature.rx.data.RxAlbumData
 import me.jameshunt.coolphotogrid.feature.rx.data.RxNewPhotos
 import me.jameshunt.coolphotogrid.repo.api.BaseApi
 import me.jameshunt.coolphotogrid.repo.api.photo.PhotoApiFactory
@@ -19,7 +20,7 @@ import timber.log.Timber
  */
 
 class BrowsePresenter(
-
+        private val albumClickedObserver: RxCommunicatorContract.Observer<RxAlbumData>,
         private val newPhotosObserver: RxCommunicatorContract.Observer<RxNewPhotos>,
         private val newPhotosEmitter: RxCommunicatorContract.Emitter<RxNewPhotos>,
         private val apiFactory: PhotoApiFactory,
@@ -29,14 +30,16 @@ class BrowsePresenter(
 
     override lateinit var view: BrowseContract.View
 
+    //todo: dispose this
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun viewLoaded() {
         Timber.i("browse view loaded")
         observeNewPhotosRequest()
         newPhotosEmitter.emitter.onNext(RxNewPhotos())
-    }
 
+        observeAlbumClicked()
+    }
 
     private fun observeNewPhotosRequest() {
         val disposable = newPhotosObserver.getObservable(compositeDisposable.isDisposed).subscribeBy(
@@ -45,7 +48,22 @@ class BrowsePresenter(
                     listenForApiData(apiFactory.getApi(it))
                 },
                 onError = { it.printStackTrace() },
-                onComplete = {}
+                onComplete = {Timber.i("new photos request completed")}
+
+        )
+        compositeDisposable.add(disposable)
+    }
+
+
+    private fun observeAlbumClicked() {
+        val disposable = albumClickedObserver.getObservable(compositeDisposable.isDisposed).subscribeBy(
+                onNext = {
+                    //view.showLoadingAnimation()
+                    //listenForApiData(apiFactory.getApi(it))
+                    Timber.i("album id: " + it.id)
+                },
+                onError = { it.printStackTrace() },
+                onComplete = {Timber.i("album clicked request completed")}
 
         )
         compositeDisposable.add(disposable)

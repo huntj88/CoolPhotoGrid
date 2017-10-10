@@ -9,6 +9,8 @@ import me.jameshunt.coolphotogrid.feature.album.AlbumPresenter
 import me.jameshunt.coolphotogrid.feature.album.viewHolder.AlbumViewHolderFactory
 import me.jameshunt.coolphotogrid.feature.album.viewHolder.AlbumViewType
 import me.jameshunt.coolphotogrid.feature.recycler.AdapterContract
+import me.jameshunt.coolphotogrid.feature.rx.RxCommunicatorContract
+import me.jameshunt.coolphotogrid.feature.rx.data.RxAlbumData
 import me.jameshunt.coolphotogrid.repo.api.album.SelectAlbumApiFactory
 import javax.inject.Named
 
@@ -21,8 +23,13 @@ class AlbumModule {
 
     @PageScope
     @Provides
-    fun getAlbumPresenter(selectAlbumApiFactory: SelectAlbumApiFactory, albumModel: AlbumContract.Model): AlbumContract.Presenter {
-        return AlbumPresenter(selectAlbumApiFactory, albumModel)
+    fun getAlbumPresenter(
+            albumClickedEmitter: RxCommunicatorContract.Emitter<RxAlbumData>,
+            selectAlbumApiFactory: SelectAlbumApiFactory,
+            albumModel: AlbumContract.Model
+
+    ): AlbumContract.Presenter {
+        return AlbumPresenter(albumClickedEmitter, selectAlbumApiFactory, albumModel)
     }
 
 

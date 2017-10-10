@@ -4,6 +4,8 @@ import io.reactivex.rxkotlin.subscribeBy
 import me.jameshunt.coolphotogrid.feature.album.viewHolder.AlbumViewType
 import me.jameshunt.coolphotogrid.feature.album.viewHolder.SelectAlbumData
 import me.jameshunt.coolphotogrid.feature.recycler.AdapterContract
+import me.jameshunt.coolphotogrid.feature.rx.RxCommunicatorContract
+import me.jameshunt.coolphotogrid.feature.rx.data.RxAlbumData
 import me.jameshunt.coolphotogrid.feature.rx.data.RxUnsplashSelectAlbumData
 import me.jameshunt.coolphotogrid.repo.api.album.SelectAlbumApiFactory
 import timber.log.Timber
@@ -11,7 +13,7 @@ import timber.log.Timber
 /**
  * Created by James on 10/8/2017.
  */
-class AlbumPresenter(val selectAlbumApiFactory: SelectAlbumApiFactory, val model: AlbumContract.Model) : AlbumContract.Presenter {
+class AlbumPresenter(private val albumClickedEmitter: RxCommunicatorContract.Emitter<RxAlbumData>, private val selectAlbumApiFactory: SelectAlbumApiFactory, val model: AlbumContract.Model) : AlbumContract.Presenter {
 
     override lateinit var view: AlbumContract.View
 
@@ -45,6 +47,6 @@ class AlbumPresenter(val selectAlbumApiFactory: SelectAlbumApiFactory, val model
     }
 
     override fun getViewHolderData(position: Int): AdapterContract.ViewHolderData {
-        return SelectAlbumData(model.currentApi?.data!![position])
+        return SelectAlbumData(model.currentApi?.data!![position], albumClickedEmitter)
     }
 }

@@ -30,9 +30,19 @@ class MainActivity : AppCompatActivity(), ActivityContract.View {
         setContentView(R.layout.activity_main)
 
         Injector(this).inject()
+        presenter.view = this
+        presenter.setupAndWait()
         setupSlide()
     }
 
+    override fun showBrowse() {
+        directionDown = false
+        animateSlide(topSlideData)
+    }
+
+    override fun showViewer() {
+
+    }
 
     private fun setupSlide() {
 
@@ -71,17 +81,26 @@ class MainActivity : AppCompatActivity(), ActivityContract.View {
             }
             MotionEvent.ACTION_CANCEL, MotionEvent.ACTION_UP -> {
 
-                val startHeight = slideData.mainView.height
-                val endHeight = if (slideData.convertDirection(directionDown)) slideData.closedHeight else main_frame.height
-
-                val animation = ValueAnimator.ofObject(
-                        slideData.getEvaluator(directionDown),
-                        startHeight,
-                        endHeight).setDuration(300)
-
-                animation.start()
+                animateSlide(slideData)
             }
             else -> {}
         }
+    }
+
+    private fun animateSlide(slideData: SlideData) {
+        val startHeight = slideData.mainView.height
+        val endHeight = if (slideData.convertDirection(directionDown)) slideData.closedHeight else main_frame.height
+
+        val animation = ValueAnimator.ofObject(
+                slideData.getEvaluator(directionDown),
+                startHeight,
+                endHeight).setDuration(300)
+
+        animation.start()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.destroy()
     }
 }

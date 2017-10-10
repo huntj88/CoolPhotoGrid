@@ -10,6 +10,9 @@ class ActivityContract {
 
     interface View {
         var presenter: Presenter
+
+        fun showBrowse()
+        fun showViewer()
     }
 
     interface Model {
@@ -18,7 +21,9 @@ class ActivityContract {
 
     interface Presenter {
         val model: Model
+        var view: View
 
         fun setupAndWait()
+        fun destroy()
     }
 }

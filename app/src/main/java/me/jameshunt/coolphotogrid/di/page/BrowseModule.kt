@@ -10,6 +10,7 @@ import me.jameshunt.coolphotogrid.feature.browse.viewHolder.util.GridViewHolderF
 import me.jameshunt.coolphotogrid.feature.browse.viewHolder.util.GridViewType
 import me.jameshunt.coolphotogrid.feature.recycler.AdapterContract
 import me.jameshunt.coolphotogrid.feature.rx.RxCommunicatorContract
+import me.jameshunt.coolphotogrid.feature.rx.data.RxAlbumData
 import me.jameshunt.coolphotogrid.feature.rx.data.RxNewPhotos
 import me.jameshunt.coolphotogrid.repo.api.photo.PhotoApiFactory
 import javax.inject.Named
@@ -24,14 +25,14 @@ class BrowseModule {
     @PageScope
     @Provides
     fun getBrowsePresenter(
-
+            albumClickedObserver: RxCommunicatorContract.Observer<RxAlbumData>,
             newPhotosObserver: RxCommunicatorContract.Observer<RxNewPhotos>,
             newPhotosEmitter: RxCommunicatorContract.Emitter<RxNewPhotos>,
             apiFactory: PhotoApiFactory,
             browseModel: BrowseContract.Model
 
     ): BrowseContract.Presenter {
-        return BrowsePresenter(newPhotosObserver, newPhotosEmitter, apiFactory, browseModel)
+        return BrowsePresenter(albumClickedObserver, newPhotosObserver, newPhotosEmitter, apiFactory, browseModel)
     }
 
     @PageScope

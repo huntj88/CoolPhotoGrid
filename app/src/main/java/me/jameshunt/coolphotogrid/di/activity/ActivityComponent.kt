@@ -4,6 +4,7 @@ import dagger.Component
 import me.jameshunt.coolphotogrid.di.app.AppComponent
 import me.jameshunt.coolphotogrid.feature.activity.MainActivity
 import me.jameshunt.coolphotogrid.feature.rx.RxCommunicatorContract
+import me.jameshunt.coolphotogrid.feature.rx.data.RxAlbumData
 import me.jameshunt.coolphotogrid.feature.rx.data.RxNewPhotos
 import me.jameshunt.coolphotogrid.repo.api.album.SelectAlbumApiFactory
 import me.jameshunt.coolphotogrid.repo.api.photo.PhotoApiFactory
@@ -18,6 +19,9 @@ interface ActivityComponent {
 
     fun getNewPhotosRxObserver(): RxCommunicatorContract.Observer<RxNewPhotos>
     fun getNewPhotosRxEmitter(): RxCommunicatorContract.Emitter<RxNewPhotos>
+
+    fun getAlbumClickedRxObserver(): RxCommunicatorContract.Observer<RxAlbumData>
+    fun getAlbumClickedRxEmitter(): RxCommunicatorContract.Emitter<RxAlbumData>
 
     fun getPhotoApiFactory(): PhotoApiFactory
     fun getSelectAlbumApiFactory(): SelectAlbumApiFactory

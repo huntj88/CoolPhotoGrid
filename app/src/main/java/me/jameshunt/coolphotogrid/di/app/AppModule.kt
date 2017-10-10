@@ -6,6 +6,7 @@ import me.jameshunt.coolphotogrid.feature.activity.ActivityContract
 import me.jameshunt.coolphotogrid.feature.activity.ActivityModel
 import me.jameshunt.coolphotogrid.feature.rx.RxCommunicator
 import me.jameshunt.coolphotogrid.feature.rx.RxCommunicatorContract
+import me.jameshunt.coolphotogrid.feature.rx.data.RxAlbumData
 import me.jameshunt.coolphotogrid.feature.rx.data.RxNewPhotos
 import javax.inject.Singleton
 
@@ -29,14 +30,38 @@ class AppModule {
         return RxCommunicator()
     }
 
+    @Singleton
     @Provides
     fun getNewPhotosRxObserver(rxCommunicator: RxCommunicator<RxNewPhotos>): RxCommunicatorContract.Observer<RxNewPhotos> {
         return rxCommunicator
     }
 
+    @Singleton
     @Provides
     fun getNewPhotosRxEmitter(rxCommunicator: RxCommunicator<RxNewPhotos>): RxCommunicatorContract.Emitter<RxNewPhotos> {
         return rxCommunicator
     }
+
+
+
+
+    @Singleton
+    @Provides
+    fun getAlbumClickedCommunicator(): RxCommunicator<RxAlbumData> {
+        return RxCommunicator()
+    }
+
+    @Singleton
+    @Provides
+    fun getAlbumClickedRxObserver(rxCommunicator: RxCommunicator<RxAlbumData>): RxCommunicatorContract.Observer<RxAlbumData> {
+        return rxCommunicator
+    }
+
+    @Singleton
+    @Provides
+    fun getAlbumClickedRxEmitter(rxCommunicator: RxCommunicator<RxAlbumData>): RxCommunicatorContract.Emitter<RxAlbumData> {
+        return rxCommunicator
+    }
+
 
 }

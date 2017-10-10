@@ -4,6 +4,8 @@ import dagger.Module
 import dagger.Provides
 import me.jameshunt.coolphotogrid.feature.activity.ActivityContract
 import me.jameshunt.coolphotogrid.feature.activity.ActivityPresenter
+import me.jameshunt.coolphotogrid.feature.rx.RxCommunicatorContract
+import me.jameshunt.coolphotogrid.feature.rx.data.RxAlbumData
 import me.jameshunt.coolphotogrid.repo.RealmInstanceManager
 import me.jameshunt.coolphotogrid.repo.UnsplashService
 import me.jameshunt.coolphotogrid.repo.api.album.SelectAlbumApiFactory
@@ -18,8 +20,8 @@ class ActivityModule {
 
     @ActivityScope
     @Provides
-    fun getActivityPresenter(model: ActivityContract.Model): ActivityContract.Presenter {
-        return ActivityPresenter(model)
+    fun getActivityPresenter(albumClickedObserver: RxCommunicatorContract.Observer<RxAlbumData>, model: ActivityContract.Model): ActivityContract.Presenter {
+        return ActivityPresenter(albumClickedObserver, model)
     }
 
     @ActivityScope
