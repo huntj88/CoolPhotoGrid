@@ -13,6 +13,7 @@ interface AlbumContract {
     interface View: AdapterContract.AdapterView {
         var presenter: Presenter
 
+        fun setAlbumInfo(albumName: String, numPhotos: Int)
     }
 
     interface Model {

@@ -22,6 +22,9 @@ class MainActivity : AppCompatActivity(), ActivityContract.View {
     @Inject
     override lateinit var presenter: ActivityContract.Presenter
 
+    lateinit var topSlideTouch: SlideOnTouch
+    lateinit var bottomSlideTouch: SlideOnTouch
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -38,7 +41,7 @@ class MainActivity : AppCompatActivity(), ActivityContract.View {
     }
 
     override fun showBrowse() {
-
+        topSlideTouch.slideOpposite()
     }
 
     override fun showViewer() {
@@ -66,12 +69,12 @@ class MainActivity : AppCompatActivity(), ActivityContract.View {
     }
 
     private fun handleSlideTop() {
-        val topSlideTouch: SlideOnTouch = SlideTopOnTouch(album_view, viewer_view, presenter)
+        topSlideTouch = SlideTopOnTouch(album_view, viewer_view, presenter)
         setupSlideTouchListener(slide_handle_top, topSlideTouch)
     }
 
     private fun handleSlideBottom() {
-        val bottomSlideTouch = SlideBottomOnTouch(viewer_view, album_view)
+        bottomSlideTouch = SlideBottomOnTouch(viewer_view, album_view)
         setupSlideTouchListener(slide_handle_bottom, bottomSlideTouch)
     }
 

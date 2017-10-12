@@ -4,8 +4,6 @@ import android.animation.ValueAnimator
 import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
-import me.jameshunt.coolphotogrid.feature.activity.ActivityContract
-
 import me.jameshunt.coolphotogrid.feature.activity.slide.SlideOnTouch
 import me.jameshunt.coolphotogrid.feature.activity.slide.SlideOnTouch.PlaceToSnap
 import me.jameshunt.coolphotogrid.feature.activity.slide.SlideOnTouch.SlideValues.getTopHandleHeightForTopTouch
@@ -18,7 +16,7 @@ class SlideTopOnTouch(private val topView: View, private val bottomView: View, p
     private var startHeight = 0
     private var lastY = 0
     private var yStart = 0
-    private var snapToLocation: PlaceToSnap = PlaceToSnap.TOP
+    private var snapToLocation: PlaceToSnap = PlaceToSnap.BOTTOM
 
     private var screenHeight = 0
 
@@ -64,7 +62,10 @@ class SlideTopOnTouch(private val topView: View, private val bottomView: View, p
 
 
     override fun actionUp(event: MotionEvent) {
+        animate()
+    }
 
+    private fun animate() {
         val startHeight = topView.height
 
         val topHandleHeight: Int = getTopHandleHeightForTopTouch(presenterForSlide, snapToLocation)
@@ -84,7 +85,15 @@ class SlideTopOnTouch(private val topView: View, private val bottomView: View, p
                 endHeight).setDuration(300)
 
         animation.start()
+    }
 
+    override fun slideOpposite() {
+        snapToLocation = when(snapToLocation){
+            PlaceToSnap.BOTTOM -> PlaceToSnap.TOP
+            PlaceToSnap.TOP -> PlaceToSnap.BOTTOM
+        }
+
+        animate()
     }
 
 

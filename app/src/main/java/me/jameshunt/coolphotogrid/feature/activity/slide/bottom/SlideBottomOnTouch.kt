@@ -83,4 +83,8 @@ class SlideBottomOnTouch(private val bottomView: View, private val topView: View
 
         animation.start()
     }
+
+    override fun slideOpposite() {
+
+    }
 }

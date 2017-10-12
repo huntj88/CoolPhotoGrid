@@ -25,12 +25,12 @@ class AlbumModule {
     @PageScope
     @Provides
     fun getAlbumPresenter(
-            albumClickedEmitter: RxCommunicatorContract.Emitter<RxAlbumData>,
+            albumClickedObserver: RxCommunicatorContract.Observer<RxAlbumData>,
             selectAlbumApiFactory: SelectAlbumApiFactory,
             albumModel: AlbumContract.Model
 
     ): AlbumContract.Presenter {
-        return AlbumPresenter(albumClickedEmitter, selectAlbumApiFactory, albumModel)
+        return AlbumPresenter(albumClickedObserver, selectAlbumApiFactory, albumModel)
     }
 
 
@@ -56,8 +56,8 @@ class AlbumModule {
 
     @PageScope
     @Provides
-    fun getAlbumViewHolderFactory(): AdapterContract.ViewHolderFactory<AlbumViewType> {
-        return AlbumViewHolderFactory()
+    fun getAlbumViewHolderFactory(albumClickedEmitter: RxCommunicatorContract.Emitter<RxAlbumData>): AdapterContract.ViewHolderFactory<AlbumViewType> {
+        return AlbumViewHolderFactory(albumClickedEmitter)
     }
 
     @PageScope

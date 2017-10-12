@@ -1,5 +1,6 @@
 package me.jameshunt.coolphotogrid.feature.album
 
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import me.jameshunt.coolphotogrid.feature.album.viewHolder.AlbumViewType
 import me.jameshunt.coolphotogrid.feature.album.viewHolder.SelectAlbumData
@@ -13,12 +14,18 @@ import timber.log.Timber
 /**
  * Created by James on 10/8/2017.
  */
-class AlbumPresenter(private val albumClickedEmitter: RxCommunicatorContract.Emitter<RxAlbumData>, private val selectAlbumApiFactory: SelectAlbumApiFactory, val model: AlbumContract.Model) : AlbumContract.Presenter {
+class AlbumPresenter(private val albumClickedObserver: RxCommunicatorContract.Observer<RxAlbumData>,
+                     private val selectAlbumApiFactory: SelectAlbumApiFactory,
+                     val model: AlbumContract.Model) : AlbumContract.Presenter {
 
     override lateinit var view: AlbumContract.View
 
+    //todo: // dispose this
+    private val compDisposable = CompositeDisposable()
+
     override fun viewLoaded() {
         listenForApiData()
+        listenForAlbumClick()
     }
 
     private fun listenForApiData(requestMore: Boolean = false) {
@@ -48,6 +55,18 @@ class AlbumPresenter(private val albumClickedEmitter: RxCommunicatorContract.Emi
         )
     }
 
+    private fun listenForAlbumClick() {
+        albumClickedObserver.getObservable(compDisposable.isDisposed).subscribeBy(
+                onNext = {
+                    albumData ->
+                    Timber.i("album click observed in album presenter")
+                    view.setAlbumInfo(albumData.album.title, albumData.album.numPhotos)
+                },
+                onError = {it.printStackTrace()},
+                onComplete = {Timber.i("album click complete in album presenter")}
+        )
+    }
+
     override fun requestMore() {
         if(model.canRequestMore)
             listenForApiData(true)
@@ -66,6 +85,6 @@ class AlbumPresenter(private val albumClickedEmitter: RxCommunicatorContract.Emi
     }
 
     override fun getViewHolderData(position: Int): AdapterContract.ViewHolderData {
-        return SelectAlbumData(model.currentApi?.data!![position], albumClickedEmitter)
+        return SelectAlbumData(model.currentApi?.data!![position])
     }
 }

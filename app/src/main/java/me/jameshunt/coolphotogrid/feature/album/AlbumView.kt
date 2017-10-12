@@ -7,8 +7,9 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
+import android.view.View
 import kotlinx.android.synthetic.main.album_layout.view.*
-import me.jameshunt.coolphotogrid.Blur
+import kotlinx.android.synthetic.main.top_handle.view.*
 import me.jameshunt.coolphotogrid.R
 import me.jameshunt.coolphotogrid.di.page.PageComponent
 import me.jameshunt.coolphotogrid.feature.recycler.AdapterContract
@@ -41,13 +42,12 @@ class AlbumView : ConstraintLayout, AlbumContract.View {
         album_recycle.layoutManager = layoutManager
 
         val dividerDecoration = DividerItemDecoration(context, layoutManager.orientation)
-        dividerDecoration.setDrawable(ContextCompat.getDrawable(context,R.drawable.album_divider))
+        dividerDecoration.setDrawable(ContextCompat.getDrawable(context, R.drawable.album_divider))
 
         album_recycle.addItemDecoration(dividerDecoration)
 
         presenter.viewLoaded()
         requestMoreWhenNecessary()
-
 
     }
 
@@ -76,6 +76,20 @@ class AlbumView : ConstraintLayout, AlbumContract.View {
 
     }
 
+    override fun setAlbumInfo(albumName: String, numPhotos: Int) {
+        no_album_text.visibility = View.GONE
+
+        album_name_handle.visibility = View.VISIBLE
+        num_photos_handle.visibility = View.VISIBLE
+        top_grabber.visibility = View.VISIBLE
+        bottom_grabber.visibility = View.VISIBLE
+
+        album_name_handle.text = albumName
+        num_photos_handle.text = numPhotos.toString()
+
+
+    }
+
     private fun requestMoreWhenNecessary() {
 
         album_recycle.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -85,10 +99,10 @@ class AlbumView : ConstraintLayout, AlbumContract.View {
 
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                 val lastVisible = layoutManager.findLastVisibleItemPosition()
-                val cellHeight = recyclerView.findViewHolderForLayoutPosition(lastVisible)?.itemView?.height?:0
+                val cellHeight = recyclerView.findViewHolderForLayoutPosition(lastVisible)?.itemView?.height ?: 0
 
 
-                if(cellHeight != 0) {
+                if (cellHeight != 0) {
                     val heightToReload = ((layoutManager.itemCount - 10) * cellHeight)
 
                     if (lastVisible * cellHeight > heightToReload)

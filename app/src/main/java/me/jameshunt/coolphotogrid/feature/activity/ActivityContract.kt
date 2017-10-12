@@ -19,6 +19,8 @@ class ActivityContract {
     interface Model {
         val newPhotosEmitter: RxCommunicatorContract.Emitter<RxNewPhotos>
         val modelHolder: ModelHolder
+
+        var isAlbumSelected: Boolean
         fun canAlbumSlideUp(): Boolean
     }
 

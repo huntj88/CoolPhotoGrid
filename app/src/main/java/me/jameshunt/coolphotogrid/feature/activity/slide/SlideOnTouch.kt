@@ -2,7 +2,6 @@ package me.jameshunt.coolphotogrid.feature.activity.slide
 
 import android.view.MotionEvent
 import me.jameshunt.coolphotogrid.Dimensions
-import me.jameshunt.coolphotogrid.feature.activity.ActivityContract
 
 /**
  * Created by James on 10/11/2017.
@@ -15,6 +14,8 @@ interface SlideOnTouch {
     fun actionMove(event: MotionEvent)
 
     fun actionUp(event: MotionEvent)
+
+    fun slideOpposite()
 
     fun getSnapToLocation(event: MotionEvent, lastY: Int, screenHeight: Int): PlaceToSnap {
 

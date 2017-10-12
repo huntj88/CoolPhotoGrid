@@ -60,7 +60,7 @@ class BrowsePresenter(
                 onNext = {
                     //view.showLoadingAnimation()
                     //listenForApiData(apiFactory.getApi(it))
-                    Timber.i("album id: " + it.id)
+                    Timber.i("album title: " + it.album.title)
                 },
                 onError = { it.printStackTrace() },
                 onComplete = {Timber.i("album clicked request completed")}

@@ -22,8 +22,6 @@ class AlbumViewHolder(itemView: View): AdapterContract.ViewHolder(itemView) {
         }
 
         album = data.collection
-        albumClickedEmitter = data.albumClickedEmitter
-
 
         FrescoHelper.setImages(album.coverPhoto?.urls?.regular, itemView.album_image)
         itemView.album_name.text = album.title
@@ -33,7 +31,7 @@ class AlbumViewHolder(itemView: View): AdapterContract.ViewHolder(itemView) {
         itemView.num_photos.text = numPhotosText
 
         itemView.setOnClickListener {
-            albumClickedEmitter.emitter.onNext(RxAlbumData(album.id))
+            albumClickedEmitter.emitter.onNext(RxAlbumData(album))
         }
 
     }

@@ -15,11 +15,13 @@ class ActivityPresenter(private val albumClickedObserver: RxCommunicatorContract
 
     private val compositeDisposable = CompositeDisposable()
 
+
     override fun setupAndWait() {
 
         val disposable = albumClickedObserver.getObservable(compositeDisposable.isDisposed).subscribeBy(
                 onNext = {
-                    Timber.i("click info: " + it.id)
+                    Timber.i("click info: " + it.album.id)
+                    model.isAlbumSelected = true
                     view.showBrowse()
                 },
                 onError = {it.printStackTrace()},
@@ -30,7 +32,7 @@ class ActivityPresenter(private val albumClickedObserver: RxCommunicatorContract
     }
 
     override fun isAlbumSelected(): Boolean {
-        return false
+        return model.isAlbumSelected
     }
 
     override fun destroy() {
