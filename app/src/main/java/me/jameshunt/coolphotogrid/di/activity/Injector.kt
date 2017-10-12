@@ -6,6 +6,7 @@ import me.jameshunt.coolphotogrid.CoolApplication
 import me.jameshunt.coolphotogrid.di.page.AlbumModule
 import me.jameshunt.coolphotogrid.di.page.BrowseModule
 import me.jameshunt.coolphotogrid.di.page.DaggerPageComponent
+import me.jameshunt.coolphotogrid.di.page.PageComponent
 import me.jameshunt.coolphotogrid.feature.activity.MainActivity
 
 /**
@@ -13,24 +14,29 @@ import me.jameshunt.coolphotogrid.feature.activity.MainActivity
  */
 class Injector(private val mainActivity: MainActivity) {
 
+    lateinit var pageComponent: PageComponent
+
     fun inject() {
         val appComponent = (mainActivity.applicationContext as CoolApplication).appComponent
         val activityComponent = DaggerActivityComponent.builder().appComponent(appComponent).activityModule(ActivityModule()).build()
         activityComponent.inject(mainActivity)
 
-        injectLayouts(activityComponent)
+        buildPageComponent(activityComponent)
+
+        mainActivity.browse_view.inject(pageComponent)
     }
 
 
-    private fun injectLayouts(activityComponent: ActivityComponent) {
-        val pageComponent = DaggerPageComponent
+    private fun buildPageComponent(activityComponent: ActivityComponent) {
+        pageComponent = DaggerPageComponent
                 .builder()
                 .activityComponent(activityComponent)
                 .browseModule(BrowseModule())
                 .albumModule(AlbumModule())
                 .build()
+    }
 
-        mainActivity.browse_view.inject(pageComponent)
+    fun injectAlbumView() {
         mainActivity.album_view.inject(pageComponent)
     }
 }

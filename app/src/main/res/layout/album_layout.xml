@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <me.jameshunt.coolphotogrid.feature.album.AlbumView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:id="@+id/album_view"
     android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/handle_shadow"
         android:layout_width="0dp"
         android:layout_height="60dp"
@@ -35,6 +35,15 @@
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:background="@drawable/album_handle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />-->
+
+    <include
+        android:id="@+id/slide_handle_top"
+        layout="@layout/top_handle"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

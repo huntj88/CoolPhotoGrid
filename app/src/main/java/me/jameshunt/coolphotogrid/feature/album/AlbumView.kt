@@ -53,7 +53,7 @@ class AlbumView : ConstraintLayout, AlbumContract.View {
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
-        handle_shadow.setImageDrawable(Blur.applyBlur(ContextCompat.getDrawable(context,R.drawable.album_handle_shadow),context, handle_shadow.width, handle_shadow.height))
+        //handle_shadow.setImageDrawable(Blur.applyBlur(ContextCompat.getDrawable(context,R.drawable.album_handle_shadow),context, handle_shadow.width, handle_shadow.height))
     }
 
 

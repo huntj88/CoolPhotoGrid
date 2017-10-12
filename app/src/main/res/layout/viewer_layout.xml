@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/viewer_layout"
+    android:id="@+id/viewer_view"
     android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -26,8 +26,7 @@
     <View
         android:id="@+id/slide_handle_bottom"
         android:layout_width="0dp"
-        android:layout_height="28dp"
-        android:background="@color/colorAccent"
+        android:layout_height="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

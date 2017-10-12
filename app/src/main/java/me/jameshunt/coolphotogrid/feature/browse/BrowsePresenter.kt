@@ -36,7 +36,7 @@ class BrowsePresenter(
     override fun viewLoaded() {
         Timber.i("browse view loaded")
         observeNewPhotosRequest()
-        //newPhotosEmitter.emitter.onNext(RxNewPhotos())
+        newPhotosEmitter.emitter.onNext(RxNewPhotos())
 
         observeAlbumClicked()
     }

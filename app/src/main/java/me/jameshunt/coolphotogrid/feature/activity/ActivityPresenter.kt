@@ -2,7 +2,6 @@ package me.jameshunt.coolphotogrid.feature.activity
 
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
-import me.jameshunt.coolphotogrid.feature.activity.slide.data.SlideData
 import me.jameshunt.coolphotogrid.feature.rx.RxCommunicatorContract
 import me.jameshunt.coolphotogrid.feature.rx.data.RxAlbumData
 import timber.log.Timber
@@ -30,15 +29,8 @@ class ActivityPresenter(private val albumClickedObserver: RxCommunicatorContract
         compositeDisposable.add(disposable)
     }
 
-    override fun canSlide(slideLocation: SlideData.SlideLocation): Boolean {
-        return when(slideLocation) {
-            SlideData.SlideLocation.TOP -> {
-                model.canAlbumSlideUp()
-            }
-            SlideData.SlideLocation.BOTTOM -> {
-                true
-            }
-        }
+    override fun isAlbumSelected(): Boolean {
+        return false
     }
 
     override fun destroy() {

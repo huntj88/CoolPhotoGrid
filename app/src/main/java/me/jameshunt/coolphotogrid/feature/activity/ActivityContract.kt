@@ -1,6 +1,6 @@
 package me.jameshunt.coolphotogrid.feature.activity
 
-import me.jameshunt.coolphotogrid.feature.activity.slide.data.SlideData
+import me.jameshunt.coolphotogrid.feature.activity.slide.SlideOnTouch
 import me.jameshunt.coolphotogrid.feature.rx.RxCommunicatorContract
 import me.jameshunt.coolphotogrid.feature.rx.data.RxNewPhotos
 
@@ -22,12 +22,11 @@ class ActivityContract {
         fun canAlbumSlideUp(): Boolean
     }
 
-    interface Presenter {
+    interface Presenter: SlideOnTouch.PresenterForSlide {
         val model: Model
         var view: View
 
         fun setupAndWait()
         fun destroy()
-        fun canSlide(slideLocation: SlideData.SlideLocation): Boolean
     }
 }
