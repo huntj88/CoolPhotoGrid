@@ -3,6 +3,8 @@ package me.jameshunt.coolphotogrid.repo.network.unsplash.interceptors
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import me.jameshunt.coolphotogrid.repo.network.unsplash.Collection
+import me.jameshunt.coolphotogrid.repo.network.unsplash.ResponsePage
+import me.jameshunt.coolphotogrid.repo.network.unsplash.photo.Photo
 import okhttp3.*
 
 
@@ -19,24 +21,49 @@ class HeaderFieldInjectorInterceptor : Interceptor {
 
         val originalResponse = chain.proceed(request)
 
-        if (!request.url().encodedPath().toLowerCase().contains("/collections/featured"))
+        val url = request.url().encodedPath().toLowerCase()
+
+        if (!url.contains("/collections/"))
             return originalResponse
 
-        return putPageNumInBody(request, originalResponse)
+        if (url.contains("/featured")) {
+            return putPageNumInCollectionBody(request, originalResponse)
+        } else if (url.contains("/photos"))
+            return putPageNumInPhotoBody(request, originalResponse)
+
+
+        return originalResponse
     }
 
 
-    private fun putPageNumInBody(request: Request, response: Response): Response {
+    private fun putPageNumInCollectionBody(request: Request, response: Response): Response {
         val originalBody = response.body()!!.string()
+        val dataList = Gson().fromJson<List<Collection>>(originalBody)
 
-        val collections = Gson().fromJson<List<Collection>>(originalBody)
+        insertPageNum(dataList, request)
+        val newBody = Gson().toJson(dataList)
 
-        for (collection in collections) {
-            collection.pageNum = request.url().queryParameterValues("page")[0].toInt()
+        return buildBody(newBody, response)
+    }
+
+
+    private fun putPageNumInPhotoBody(request: Request, response: Response): Response {
+        val originalBody = response.body()!!.string()
+        val dataList = Gson().fromJson<List<Photo>>(originalBody)
+
+        insertPageNum(dataList, request)
+        val newBody = Gson().toJson(dataList)
+
+        return buildBody(newBody, response)
+    }
+
+    private fun insertPageNum(dataList: List<ResponsePage>, request: Request) {
+        for (data in dataList) {
+            data.pageNum = request.url().queryParameterValues("page")[0].toInt()
         }
+    }
 
-        val newBody = Gson().toJson(collections)
-
+    private fun buildBody(newBody: String, response: Response): Response {
         val contentType = response.body()?.contentType() ?: MediaType.parse("application/json")
 
         val body = ResponseBody.create(contentType, newBody)

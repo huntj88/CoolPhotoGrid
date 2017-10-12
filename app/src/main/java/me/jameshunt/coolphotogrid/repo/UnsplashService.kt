@@ -4,6 +4,7 @@ import io.reactivex.Single
 import me.jameshunt.coolphotogrid.repo.network.unsplash.Collection
 import me.jameshunt.coolphotogrid.repo.network.unsplash.photo.Photo
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
@@ -11,12 +12,11 @@ import retrofit2.http.Query
  */
 interface UnsplashService {
 
-    @GET("/photos?per_page=30")
-    fun getNewPhotos(): Single<List<Photo>>
-
-
     @GET("/collections/featured")
     fun getCollections(@Query("page") pageNum: Int, @Query("per_page") amountToRequest: Int): Single<List<Collection>>
+
+    @GET("collections/{id}/photos")
+    fun getPhotosFromCollection(@Path("id") id: Int, @Query("page") pageNum: Int, @Query("per_page") amountToRequest: Int): Single<List<Photo>>
 
 
 

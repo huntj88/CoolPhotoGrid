@@ -1,5 +1,6 @@
 package me.jameshunt.coolphotogrid.feature.album
 
+import io.realm.RealmResults
 import me.jameshunt.coolphotogrid.repo.api.BaseApi
 import me.jameshunt.coolphotogrid.repo.realm.RealmCollection
 
@@ -8,7 +9,7 @@ import me.jameshunt.coolphotogrid.repo.realm.RealmCollection
  */
 class AlbumModel: AlbumContract.Model {
 
-    override var currentApi: BaseApi<RealmCollection>? = null
+    override var currentApi: BaseApi<RealmResults<RealmCollection>>? = null
 
     override var canRequestMore: Boolean = false
     override var amountBeforeRequest: Int = 0

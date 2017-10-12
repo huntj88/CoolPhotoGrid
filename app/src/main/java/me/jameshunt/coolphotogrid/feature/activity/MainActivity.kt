@@ -99,19 +99,6 @@ class MainActivity : AppCompatActivity(), ActivityContract.View {
         }
     }
 
-
-    /*private fun animateSlide(slideData: SlideData) {
-        val startHeight = slideData.mainView.height
-        val endHeight = if (slideData.convertDirection(directionDown)) slideData.closedHeight else main_frame.height
-
-        val animation = ValueAnimator.ofObject(
-                slideData.getEvaluator(directionDown),
-                startHeight,
-                endHeight).setDuration(300)
-
-        animation.start()
-    }*/
-
     override fun onDestroy() {
         super.onDestroy()
         presenter.destroy()

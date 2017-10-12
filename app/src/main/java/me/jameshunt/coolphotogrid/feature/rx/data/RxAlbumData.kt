@@ -8,5 +8,6 @@ import me.jameshunt.coolphotogrid.repo.realm.RealmCollection
  */
 
 data class RxAlbumData(
-        val album: RealmCollection
+        val album: RealmCollection,
+        var requestMore: Boolean
 ) : RxData

@@ -2,6 +2,7 @@ package me.jameshunt.coolphotogrid.repo.network.unsplash.photo
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import me.jameshunt.coolphotogrid.repo.network.unsplash.ResponsePage
 import me.jameshunt.coolphotogrid.repo.realm.RealmPhoto
 import me.jameshunt.coolphotogrid.repo.realm.RealmPhotoUrls
 import me.jameshunt.coolphotogrid.repo.realm.RealmPhotoUser
@@ -21,7 +22,10 @@ data class Photo(
         @Expose val user: User? = null,
         @Expose val urls: Urls? = null
 
-) {
+): ResponsePage {
+
+    // set in okhttp interceptor "HeaderFieldInjectorInterceptor"
+    override var pageNum: Int = 1
 
     fun getRealmVersion(): RealmPhoto {
 
@@ -43,6 +47,7 @@ data class Photo(
 
         return RealmPhoto(
                 id = id,
+                page = pageNum,
                 unixTime = unixTime,
                 width = width,
                 height = height,

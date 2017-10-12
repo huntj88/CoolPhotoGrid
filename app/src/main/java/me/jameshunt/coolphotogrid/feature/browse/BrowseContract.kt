@@ -3,7 +3,7 @@ package me.jameshunt.coolphotogrid.feature.browse
 import me.jameshunt.coolphotogrid.feature.browse.viewHolder.util.GridViewType
 import me.jameshunt.coolphotogrid.feature.recycler.AdapterContract
 import me.jameshunt.coolphotogrid.repo.api.BaseApi
-import me.jameshunt.coolphotogrid.repo.realm.RealmPhoto
+import me.jameshunt.coolphotogrid.repo.realm.RealmCollection
 
 
 /**
@@ -16,7 +16,10 @@ interface BrowseContract {
     }
 
     interface Model {
-        var currentApi: BaseApi<RealmPhoto>?
+        var currentApi: BaseApi<RealmCollection>?
+
+        var canRequestMore: Boolean
+        var amountBeforeRequest: Int
     }
 
     interface Presenter: AdapterContract.Presenter<GridViewType> {

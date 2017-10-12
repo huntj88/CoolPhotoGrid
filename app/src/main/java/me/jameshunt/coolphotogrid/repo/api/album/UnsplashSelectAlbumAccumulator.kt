@@ -19,8 +19,6 @@ class UnsplashSelectAlbumAccumulator(private val unsplashService: UnsplashServic
 
     fun getDataFromRepo(data: RxUnsplashSelectAlbumData): Single<RealmResults<RealmCollection>> {
 
-
-
         return when(data.requestMore) {
             true -> requestMore()
             false -> fromCacheIfAvailable()

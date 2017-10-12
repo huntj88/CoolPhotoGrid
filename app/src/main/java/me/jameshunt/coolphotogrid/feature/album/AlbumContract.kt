@@ -1,5 +1,6 @@
 package me.jameshunt.coolphotogrid.feature.album
 
+import io.realm.RealmResults
 import me.jameshunt.coolphotogrid.feature.album.viewHolder.AlbumViewType
 import me.jameshunt.coolphotogrid.feature.recycler.AdapterContract
 import me.jameshunt.coolphotogrid.repo.api.BaseApi
@@ -17,7 +18,7 @@ interface AlbumContract {
     }
 
     interface Model {
-        var currentApi: BaseApi<RealmCollection>?
+        var currentApi: BaseApi<RealmResults<RealmCollection>>?
 
         var canRequestMore: Boolean
         var amountBeforeRequest: Int
@@ -27,6 +28,5 @@ interface AlbumContract {
         var view: View
 
         fun viewLoaded()
-        fun requestMore()
     }
 }

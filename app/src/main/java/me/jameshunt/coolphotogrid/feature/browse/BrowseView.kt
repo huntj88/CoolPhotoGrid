@@ -36,6 +36,8 @@ class BrowseView : ConstraintLayout, BrowseContract.View {
         browse_recycle.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
         presenter.viewLoaded()
+
+        AdapterContract.requestMoreWhenNecessary(browse_recycle, presenter, 4)
     }
 
     override fun refreshRecycler() {
@@ -47,7 +49,7 @@ class BrowseView : ConstraintLayout, BrowseContract.View {
     }
 
     override fun insertItemsRecycler(startIndex: Int, count: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        (adapter as RecyclerView.Adapter<*>).notifyItemRangeInserted(startIndex, count)
     }
 
     override fun showLoadingAnimation() {

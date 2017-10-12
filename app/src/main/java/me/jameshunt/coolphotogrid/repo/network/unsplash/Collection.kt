@@ -14,10 +14,10 @@ class Collection (
         @Expose val title: String = "",
         @SerializedName("total_photos") val numPhotos: Int,
         @SerializedName("cover_photo") val coverPhoto: Photo
-) {
+): ResponsePage {
 
-    var pageNum: Int = 1
-    // set in okhttp interceptor
+    // set in okhttp interceptor "HeaderFieldInjectorInterceptor"
+    override var pageNum: Int = 1
 
     fun getRealmVersion(): RealmCollection {
         return RealmCollection(

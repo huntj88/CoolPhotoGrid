@@ -40,7 +40,7 @@ class AlbumPresenter(private val albumClickedObserver: RxCommunicatorContract.Ob
                     val numAfter = model.currentApi?.data?.size?: 0
 
                     Timber.i("api in album has been updated")
-                    Timber.i("album num: " + it.data.size)
+                    Timber.i("album num: " + numAfter)
 
                     if(numBefore == 0) {
                         view.refreshRecycler()

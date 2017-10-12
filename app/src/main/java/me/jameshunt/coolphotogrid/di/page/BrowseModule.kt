@@ -12,8 +12,7 @@ import me.jameshunt.coolphotogrid.feature.browse.viewHolder.util.GridViewType
 import me.jameshunt.coolphotogrid.feature.recycler.AdapterContract
 import me.jameshunt.coolphotogrid.feature.rx.RxCommunicatorContract
 import me.jameshunt.coolphotogrid.feature.rx.data.RxAlbumData
-import me.jameshunt.coolphotogrid.feature.rx.data.RxNewPhotos
-import me.jameshunt.coolphotogrid.repo.api.photo.newPhotos.PhotoApiFactory
+import me.jameshunt.coolphotogrid.repo.api.photo.PhotoApiFactory
 import javax.inject.Named
 
 /**
@@ -27,13 +26,11 @@ class BrowseModule {
     @Provides
     fun getBrowsePresenter(
             albumClickedObserver: RxCommunicatorContract.Observer<RxAlbumData>,
-            newPhotosObserver: RxCommunicatorContract.Observer<RxNewPhotos>,
-            newPhotosEmitter: RxCommunicatorContract.Emitter<RxNewPhotos>,
             apiFactory: PhotoApiFactory,
             browseModel: BrowseContract.Model
 
     ): BrowseContract.Presenter {
-        return BrowsePresenter(albumClickedObserver, newPhotosObserver, newPhotosEmitter, apiFactory, browseModel)
+        return BrowsePresenter(albumClickedObserver, apiFactory, browseModel)
     }
 
     @PageScope
@@ -56,13 +53,11 @@ class BrowseModule {
     }
 
 
-    @PageScope
     @Provides
     fun getGridViewHolderFactory(): AdapterContract.ViewHolderFactory<GridViewType> {
         return GridViewHolderFactory()
     }
 
-    @PageScope
     @Provides
     @Named("browse")
     fun getGridAdapter(presenter: BrowseContract.Presenter, gridViewHolderFactory: AdapterContract.ViewHolderFactory<GridViewType>): AdapterContract.Adapter {

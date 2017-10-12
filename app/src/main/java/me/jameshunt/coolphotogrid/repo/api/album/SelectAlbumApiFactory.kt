@@ -1,6 +1,7 @@
 package me.jameshunt.coolphotogrid.repo.api.album
 
 import io.reactivex.Single
+import io.realm.RealmResults
 import me.jameshunt.coolphotogrid.feature.rx.RxData
 import me.jameshunt.coolphotogrid.feature.rx.data.RxUnsplashSelectAlbumData
 import me.jameshunt.coolphotogrid.repo.RealmInstanceManager
@@ -14,7 +15,7 @@ import me.jameshunt.coolphotogrid.repo.realm.RealmCollection
 class SelectAlbumApiFactory(private val unsplashService: UnsplashService, private val realmInstanceManager: RealmInstanceManager) {
 
 
-    fun getApi(data: RxData): Single<BaseApi<RealmCollection>> {
+    fun getApi(data: RxData): Single<BaseApi<RealmResults<RealmCollection>>> {
 
         return when(data) {
             is RxUnsplashSelectAlbumData -> {
@@ -27,17 +28,11 @@ class SelectAlbumApiFactory(private val unsplashService: UnsplashService, privat
 
     }
 
-
-    //todo: finish requesting more data. need to send rxUnspashSelectAlbumData to accumulator
-    private fun buildUnsplashSelectAlbumApi(data: RxUnsplashSelectAlbumData): Single<BaseApi<RealmCollection>> {
+    private fun buildUnsplashSelectAlbumApi(data: RxUnsplashSelectAlbumData): Single<BaseApi<RealmResults<RealmCollection>>> {
         val accumulator = UnsplashSelectAlbumAccumulator(unsplashService, realmInstanceManager)
         return accumulator.getDataFromRepo(data)
                 .map {
-                    SelectAlbumApi(
-                            it,
-                            //accumulator.getRandomID(it).toString()
-                            ""
-                    )
+                    SelectAlbumApi(it, "")
                 }
     }
 

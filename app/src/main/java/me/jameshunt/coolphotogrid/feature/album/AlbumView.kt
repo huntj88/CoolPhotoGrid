@@ -47,7 +47,8 @@ class AlbumView : ConstraintLayout, AlbumContract.View {
         album_recycle.addItemDecoration(dividerDecoration)
 
         presenter.viewLoaded()
-        requestMoreWhenNecessary()
+
+        AdapterContract.requestMoreWhenNecessary(album_recycle, presenter, 10)
 
     }
 
@@ -86,33 +87,5 @@ class AlbumView : ConstraintLayout, AlbumContract.View {
 
         album_name_handle.text = albumName
         num_photos_handle.text = numPhotos.toString()
-
-
     }
-
-    private fun requestMoreWhenNecessary() {
-
-        album_recycle.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-
-                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-                val lastVisible = layoutManager.findLastVisibleItemPosition()
-                val cellHeight = recyclerView.findViewHolderForLayoutPosition(lastVisible)?.itemView?.height ?: 0
-
-
-                if (cellHeight != 0) {
-                    val heightToReload = ((layoutManager.itemCount - 10) * cellHeight)
-
-                    if (lastVisible * cellHeight > heightToReload)
-                        presenter.requestMore()
-                }
-
-            }
-
-        })
-    }
-
-
 }

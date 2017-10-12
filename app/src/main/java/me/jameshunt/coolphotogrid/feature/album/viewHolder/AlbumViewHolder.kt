@@ -31,7 +31,7 @@ class AlbumViewHolder(itemView: View): AdapterContract.ViewHolder(itemView) {
         itemView.num_photos.text = numPhotosText
 
         itemView.setOnClickListener {
-            albumClickedEmitter.emitter.onNext(RxAlbumData(album))
+            albumClickedEmitter.emitter.onNext(RxAlbumData(album, false))
         }
 
     }

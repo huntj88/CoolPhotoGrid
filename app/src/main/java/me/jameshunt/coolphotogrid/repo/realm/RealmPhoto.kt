@@ -14,6 +14,9 @@ open class RealmPhoto(
         open var id: String = "",
 
         @Index
+        open var page: Int = 0,
+
+        @Index
         open var unixTime: Long = 0,
 
         open var width: Int = 0,
@@ -24,8 +27,7 @@ open class RealmPhoto(
 
         open var cacheAge: Int = 0
 
-): RealmObject()
-
+) : RealmObject()
 
 
 open class RealmPhotoUser(
@@ -33,7 +35,7 @@ open class RealmPhotoUser(
         open var name: String = "",
         open var link: String = ""
 
-): RealmObject()
+) : RealmObject()
 
 open class RealmPhotoUrls(
 
@@ -43,4 +45,4 @@ open class RealmPhotoUrls(
         open var small: String = "",
         open var thumb: String = ""
 
-): RealmObject()
+) : RealmObject()

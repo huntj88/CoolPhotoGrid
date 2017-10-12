@@ -6,9 +6,8 @@ import me.jameshunt.coolphotogrid.feature.activity.MainActivity
 import me.jameshunt.coolphotogrid.feature.activity.ModelHolder
 import me.jameshunt.coolphotogrid.feature.rx.RxCommunicatorContract
 import me.jameshunt.coolphotogrid.feature.rx.data.RxAlbumData
-import me.jameshunt.coolphotogrid.feature.rx.data.RxNewPhotos
 import me.jameshunt.coolphotogrid.repo.api.album.SelectAlbumApiFactory
-import me.jameshunt.coolphotogrid.repo.api.photo.newPhotos.PhotoApiFactory
+import me.jameshunt.coolphotogrid.repo.api.photo.PhotoApiFactory
 
 /**
  * Created by James on 10/5/2017.
@@ -19,9 +18,6 @@ import me.jameshunt.coolphotogrid.repo.api.photo.newPhotos.PhotoApiFactory
 interface ActivityComponent {
 
     fun getModelHolder(): ModelHolder
-
-    fun getNewPhotosRxObserver(): RxCommunicatorContract.Observer<RxNewPhotos>
-    fun getNewPhotosRxEmitter(): RxCommunicatorContract.Emitter<RxNewPhotos>
 
     fun getAlbumClickedRxObserver(): RxCommunicatorContract.Observer<RxAlbumData>
     fun getAlbumClickedRxEmitter(): RxCommunicatorContract.Emitter<RxAlbumData>
