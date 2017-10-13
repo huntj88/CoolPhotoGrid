@@ -23,7 +23,7 @@ class AlbumViewHolder(itemView: View): AdapterContract.ViewHolder(itemView) {
 
         album = data.collection
 
-        FrescoHelper.setImages(album.coverPhoto?.urls?.regular, itemView.album_image)
+        FrescoHelper.setImages(album.coverPhoto?.urls?.regular, album.coverPhoto?.urls?.thumb, itemView.album_image)
         itemView.album_name.text = album.title
 
         val numPhotosText = album.numPhotos.toString() + " photos"

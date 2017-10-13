@@ -18,11 +18,23 @@ class ImageGridFour(itemView: View): AdapterContract.ViewHolder(itemView) {
             throw UnsupportedOperationException("wrong time of viewHolder for this data")
         }
 
-        Timber.i("fourth: "+ data.photos[0]?.id)
+        FrescoHelper.setImages(
+                data.photos[0]?.urls?.small,
+                data.photos[0]?.urls?.thumb,
+                itemView.top_left_image
+        )
 
-        FrescoHelper.setImages(data.photos[0]?.urls?.thumb, itemView.top_left_image)
-        FrescoHelper.setImages(data.photos[1]?.urls?.thumb, itemView.bottom_left_image)
-        FrescoHelper.setImages(data.photos[2]?.urls?.regular, itemView.right_image)
+        FrescoHelper.setImages(
+                data.photos[1]?.urls?.small,
+                data.photos[1]?.urls?.thumb,
+                itemView.bottom_left_image
+        )
+
+        FrescoHelper.setImages(
+                data.photos[2]?.urls?.regular,
+                data.photos[2]?.urls?.thumb,
+                itemView.right_image
+        )
 
     }
 
