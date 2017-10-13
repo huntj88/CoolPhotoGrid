@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity(), ActivityContract.View {
     @Inject
     override lateinit var presenter: ActivityContract.Presenter
 
-    var topSlideTouch: SlideOnTouch? = null
-    lateinit var bottomSlideTouch: SlideOnTouch
+    private var topSlideTouch: SlideOnTouch? = null
+    private lateinit var bottomSlideTouch: SlideOnTouch
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,10 +103,9 @@ class MainActivity : AppCompatActivity(), ActivityContract.View {
     override fun onDestroy() {
         super.onDestroy()
 
-        if (isFinishing) {
-            presenter.destroy()
-            album_view.destroy()
-            browse_view.destroy()
-        }
+        presenter.destroy()
+        album_view.destroy()
+        browse_view.destroy()
+
     }
 }

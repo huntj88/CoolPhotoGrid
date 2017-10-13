@@ -9,7 +9,12 @@ import timber.log.Timber
 /**
  * Created by James on 10/5/2017.
  */
-class ActivityPresenter(private val albumClickedObserver: RxCommunicatorContract.Observer<RxAlbumData>, override val model: ActivityContract.Model): ActivityContract.Presenter {
+class ActivityPresenter(
+
+        private val albumClickedObserver: RxCommunicatorContract.Observer<RxAlbumData>,
+        override val model: ActivityContract.Model
+
+): ActivityContract.Presenter {
 
     override lateinit var view: ActivityContract.View
 

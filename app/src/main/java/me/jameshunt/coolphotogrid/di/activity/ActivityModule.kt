@@ -20,7 +20,12 @@ class ActivityModule {
 
     @ActivityScope
     @Provides
-    fun getActivityPresenter(albumClickedObserver: RxCommunicatorContract.Observer<RxAlbumData>, model: ActivityContract.Model): ActivityContract.Presenter {
+    fun getActivityPresenter(
+
+            albumClickedObserver: RxCommunicatorContract.Observer<RxAlbumData>,
+            model: ActivityContract.Model
+
+    ): ActivityContract.Presenter {
         return ActivityPresenter(albumClickedObserver, model)
     }
 

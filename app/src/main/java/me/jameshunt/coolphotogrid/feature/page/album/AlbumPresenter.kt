@@ -14,9 +14,13 @@ import timber.log.Timber
 /**
  * Created by James on 10/8/2017.
  */
-class AlbumPresenter(private val albumClickedObserver: RxCommunicatorContract.Observer<RxAlbumData>,
-                     private val selectAlbumApiFactory: SelectAlbumApiFactory,
-                     val model: AlbumContract.Model) : AlbumContract.Presenter {
+class AlbumPresenter(
+
+        private val albumClickedObserver: RxCommunicatorContract.Observer<RxAlbumData>,
+        private val selectAlbumApiFactory: SelectAlbumApiFactory,
+        val model: AlbumContract.Model
+
+) : AlbumContract.Presenter {
 
     override lateinit var view: AlbumContract.View
 
@@ -37,12 +41,12 @@ class AlbumPresenter(private val albumClickedObserver: RxCommunicatorContract.Ob
                 onSuccess = {
                     val numBefore = model.amountBeforeRequest
                     model.currentApi = it
-                    val numAfter = model.currentApi?.data?.size?: 0
+                    val numAfter = model.currentApi?.data?.size ?: 0
 
                     Timber.i("api in album has been updated")
                     Timber.i("album num: " + numAfter)
 
-                    if(numBefore == 0) {
+                    if (numBefore == 0) {
                         view.refreshRecycler()
                         view.hideLoadingAnimation()
                     } else {
@@ -57,14 +61,13 @@ class AlbumPresenter(private val albumClickedObserver: RxCommunicatorContract.Ob
 
     private fun listenForAlbumClick() {
         val disposable = albumClickedObserver.getObservable(compDisposable.isDisposed).subscribeBy(
-                onNext = {
-                    albumData ->
+                onNext = { albumData ->
                     Timber.i("album click observed in album presenter")
                     model.selectedAlbum = albumData.album
                     setAlbumInfo()
                 },
-                onError = {it.printStackTrace()},
-                onComplete = {Timber.i("album click complete in album presenter")}
+                onError = { it.printStackTrace() },
+                onComplete = { Timber.i("album click complete in album presenter") }
         )
 
         compDisposable.add(disposable)
@@ -79,7 +82,7 @@ class AlbumPresenter(private val albumClickedObserver: RxCommunicatorContract.Ob
     }
 
     override fun requestMore() {
-        if(model.canRequestMore)
+        if (model.canRequestMore)
             listenForApiData(true)
     }
 
@@ -88,7 +91,7 @@ class AlbumPresenter(private val albumClickedObserver: RxCommunicatorContract.Ob
     }
 
     override fun getItemCount(): Int {
-        return model.currentApi?.data?.size?:0
+        return model.currentApi?.data?.size ?: 0
     }
 
     override fun getEnumForViewType(viewType: Int): AlbumViewType {
