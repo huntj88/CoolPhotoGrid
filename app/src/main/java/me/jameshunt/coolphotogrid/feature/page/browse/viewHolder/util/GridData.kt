@@ -1,4 +1,4 @@
-package me.jameshunt.coolphotogrid.feature.browse.viewHolder.util
+package me.jameshunt.coolphotogrid.feature.page.browse.viewHolder.util
 
 import me.jameshunt.coolphotogrid.feature.recycler.AdapterContract
 import me.jameshunt.coolphotogrid.repo.realm.RealmPhoto

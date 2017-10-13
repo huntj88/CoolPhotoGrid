@@ -1,12 +1,12 @@
-package me.jameshunt.coolphotogrid.feature.browse.viewHolder.util
+package me.jameshunt.coolphotogrid.feature.page.browse.viewHolder.util
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import me.jameshunt.coolphotogrid.feature.browse.viewHolder.ImageGridFour
-import me.jameshunt.coolphotogrid.feature.browse.viewHolder.ImageGridOne
-import me.jameshunt.coolphotogrid.feature.browse.viewHolder.ImageGridThree
-import me.jameshunt.coolphotogrid.feature.browse.viewHolder.ImageGridTwo
+import me.jameshunt.coolphotogrid.feature.page.browse.viewHolder.ImageGridFour
+import me.jameshunt.coolphotogrid.feature.page.browse.viewHolder.ImageGridOne
+import me.jameshunt.coolphotogrid.feature.page.browse.viewHolder.ImageGridThree
+import me.jameshunt.coolphotogrid.feature.page.browse.viewHolder.ImageGridTwo
 import me.jameshunt.coolphotogrid.feature.recycler.AdapterContract
 
 /**

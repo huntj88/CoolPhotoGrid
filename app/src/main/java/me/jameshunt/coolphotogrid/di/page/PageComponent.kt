@@ -2,8 +2,8 @@ package me.jameshunt.coolphotogrid.di.page
 
 import dagger.Component
 import me.jameshunt.coolphotogrid.di.activity.ActivityComponent
-import me.jameshunt.coolphotogrid.feature.album.AlbumView
-import me.jameshunt.coolphotogrid.feature.browse.BrowseView
+import me.jameshunt.coolphotogrid.feature.page.album.AlbumView
+import me.jameshunt.coolphotogrid.feature.page.browse.BrowseView
 
 /**
  * Created by James on 10/5/2017.

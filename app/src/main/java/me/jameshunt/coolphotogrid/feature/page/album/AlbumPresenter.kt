@@ -1,9 +1,9 @@
-package me.jameshunt.coolphotogrid.feature.album
+package me.jameshunt.coolphotogrid.feature.page.album
 
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
-import me.jameshunt.coolphotogrid.feature.album.viewHolder.AlbumViewType
-import me.jameshunt.coolphotogrid.feature.album.viewHolder.SelectAlbumData
+import me.jameshunt.coolphotogrid.feature.page.album.viewHolder.AlbumViewType
+import me.jameshunt.coolphotogrid.feature.page.album.viewHolder.SelectAlbumData
 import me.jameshunt.coolphotogrid.feature.recycler.AdapterContract
 import me.jameshunt.coolphotogrid.feature.rx.RxCommunicatorContract
 import me.jameshunt.coolphotogrid.feature.rx.data.RxAlbumData
@@ -20,12 +20,12 @@ class AlbumPresenter(private val albumClickedObserver: RxCommunicatorContract.Ob
 
     override lateinit var view: AlbumContract.View
 
-    //todo: // dispose this
     private val compDisposable = CompositeDisposable()
 
     override fun viewLoaded() {
         listenForApiData()
         listenForAlbumClick()
+        setAlbumInfo()
     }
 
     private fun listenForApiData(requestMore: Boolean = false) {
@@ -56,15 +56,26 @@ class AlbumPresenter(private val albumClickedObserver: RxCommunicatorContract.Ob
     }
 
     private fun listenForAlbumClick() {
-        albumClickedObserver.getObservable(compDisposable.isDisposed).subscribeBy(
+        val disposable = albumClickedObserver.getObservable(compDisposable.isDisposed).subscribeBy(
                 onNext = {
                     albumData ->
                     Timber.i("album click observed in album presenter")
-                    view.setAlbumInfo(albumData.album.title, albumData.album.numPhotos)
+                    model.selectedAlbum = albumData.album
+                    setAlbumInfo()
                 },
                 onError = {it.printStackTrace()},
                 onComplete = {Timber.i("album click complete in album presenter")}
         )
+
+        compDisposable.add(disposable)
+    }
+
+    private fun setAlbumInfo() {
+        model.selectedAlbum?.let {
+            view.setAlbumInfo(it.title, it.numPhotos)
+        }
+
+
     }
 
     override fun requestMore() {
@@ -86,5 +97,9 @@ class AlbumPresenter(private val albumClickedObserver: RxCommunicatorContract.Ob
 
     override fun getViewHolderData(position: Int): AdapterContract.ViewHolderData {
         return SelectAlbumData(model.currentApi?.data!![position])
+    }
+
+    override fun destroy() {
+        compDisposable.dispose()
     }
 }

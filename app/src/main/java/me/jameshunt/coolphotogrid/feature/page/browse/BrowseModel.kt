@@ -1,4 +1,4 @@
-package me.jameshunt.coolphotogrid.feature.browse
+package me.jameshunt.coolphotogrid.feature.page.browse
 
 import me.jameshunt.coolphotogrid.repo.api.BaseApi
 import me.jameshunt.coolphotogrid.repo.realm.RealmCollection

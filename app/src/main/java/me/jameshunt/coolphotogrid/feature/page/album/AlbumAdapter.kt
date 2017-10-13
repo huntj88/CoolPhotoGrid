@@ -1,7 +1,7 @@
-package me.jameshunt.coolphotogrid.feature.album
+package me.jameshunt.coolphotogrid.feature.page.album
 
 import android.view.ViewGroup
-import me.jameshunt.coolphotogrid.feature.album.viewHolder.AlbumViewType
+import me.jameshunt.coolphotogrid.feature.page.album.viewHolder.AlbumViewType
 import me.jameshunt.coolphotogrid.feature.recycler.Adapter
 import me.jameshunt.coolphotogrid.feature.recycler.AdapterContract
 

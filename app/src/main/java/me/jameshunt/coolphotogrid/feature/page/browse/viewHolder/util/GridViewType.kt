@@ -1,4 +1,4 @@
-package me.jameshunt.coolphotogrid.feature.browse.viewHolder.util
+package me.jameshunt.coolphotogrid.feature.page.browse.viewHolder.util
 
 import android.view.View
 import com.facebook.drawee.view.SimpleDraweeView

@@ -1,17 +1,15 @@
-package me.jameshunt.coolphotogrid.feature.browse.viewHolder
+package me.jameshunt.coolphotogrid.feature.page.browse.viewHolder
 
 import android.view.View
-import kotlinx.android.synthetic.main.image_grid_four.view.*
+import kotlinx.android.synthetic.main.image_grid_three.view.*
 import me.jameshunt.coolphotogrid.FrescoHelper
-import me.jameshunt.coolphotogrid.feature.browse.viewHolder.util.GridData
+import me.jameshunt.coolphotogrid.feature.page.browse.viewHolder.util.GridData
 import me.jameshunt.coolphotogrid.feature.recycler.AdapterContract
-import timber.log.Timber
 
 /**
- * Created by James on 10/7/2017.
+ * Created by James on 10/6/2017.
  */
-
-class ImageGridFour(itemView: View): AdapterContract.ViewHolder(itemView) {
+class ImageGridThree(itemView: View): AdapterContract.ViewHolder(itemView) {
 
     override fun bindData(data: AdapterContract.ViewHolderData) {
         if(data !is GridData) {
@@ -19,21 +17,21 @@ class ImageGridFour(itemView: View): AdapterContract.ViewHolder(itemView) {
         }
 
         FrescoHelper.setImages(
-                data.photos[0]?.urls?.small,
+                data.photos[0]?.urls?.regular,
                 data.photos[0]?.urls?.thumb,
-                itemView.top_left_image
+                itemView.left_image
         )
 
         FrescoHelper.setImages(
                 data.photos[1]?.urls?.small,
                 data.photos[1]?.urls?.thumb,
-                itemView.bottom_left_image
+                itemView.top_right_image
         )
 
         FrescoHelper.setImages(
-                data.photos[2]?.urls?.regular,
+                data.photos[2]?.urls?.small,
                 data.photos[2]?.urls?.thumb,
-                itemView.right_image
+                itemView.bottom_right_image
         )
 
     }

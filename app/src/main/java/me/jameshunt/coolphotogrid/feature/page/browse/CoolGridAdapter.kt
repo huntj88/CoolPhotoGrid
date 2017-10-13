@@ -1,7 +1,7 @@
-package me.jameshunt.coolphotogrid.feature.browse
+package me.jameshunt.coolphotogrid.feature.page.browse
 
 import android.view.ViewGroup
-import me.jameshunt.coolphotogrid.feature.browse.viewHolder.util.GridViewType
+import me.jameshunt.coolphotogrid.feature.page.browse.viewHolder.util.GridViewType
 import me.jameshunt.coolphotogrid.feature.recycler.Adapter
 import me.jameshunt.coolphotogrid.feature.recycler.AdapterContract
 

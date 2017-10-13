@@ -1,11 +1,11 @@
-package me.jameshunt.coolphotogrid.feature.browse
+package me.jameshunt.coolphotogrid.feature.page.browse
 
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.realm.RealmList
-import me.jameshunt.coolphotogrid.feature.browse.viewHolder.util.GridData
-import me.jameshunt.coolphotogrid.feature.browse.viewHolder.util.GridViewType
+import me.jameshunt.coolphotogrid.feature.page.browse.viewHolder.util.GridData
+import me.jameshunt.coolphotogrid.feature.page.browse.viewHolder.util.GridViewType
 import me.jameshunt.coolphotogrid.feature.recycler.AdapterContract
 import me.jameshunt.coolphotogrid.feature.rx.RxCommunicatorContract
 import me.jameshunt.coolphotogrid.feature.rx.data.RxAlbumData
@@ -26,22 +26,26 @@ class BrowsePresenter(
 
 ) : BrowseContract.Presenter {
 
+    //todo: stop trying to load photos from album if you already got all the photos from the album
+
     override lateinit var view: BrowseContract.View
 
-    //todo: dispose this
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun viewLoaded() {
         Timber.i("browse view loaded")
 
         observeAlbumClicked()
+
+        browseModel.currentApi?.let { requestExistingData(it) }
     }
 
 
     private fun observeAlbumClicked() {
         val disposable = albumClickedObserver.getObservable(compositeDisposable.isDisposed).subscribeBy(
                 onNext = {
-                    browseModel.amountBeforeRequest = it.album.photos?.size?:0
+                    //Timber.i(it.album.isManaged.toString())
+                    browseModel.amountBeforeRequest = it.album.photos?.size ?: 0
                     view.showLoadingAnimation()
                     listenForApiData(apiFactory.getApi(it))
                     Timber.i("album title: " + it.album.title)
@@ -62,12 +66,12 @@ class BrowsePresenter(
                 onSuccess = {
                     val numBefore = browseModel.amountBeforeRequest
                     browseModel.currentApi = it
-                    val numAfter = browseModel.currentApi?.data?.photos?.size?: 0
+                    val numAfter = browseModel.currentApi?.data?.photos?.size ?: 0
 
                     Timber.i("api in browse has been updated")
 
 
-                    if(numBefore == 0) {
+                    if (numBefore == 0) {
                         view.refreshRecycler()
                     } else {
                         view.insertItemsRecycler(numBefore, numAfter - numBefore)
@@ -81,6 +85,13 @@ class BrowsePresenter(
         )
     }
 
+    /*private fun getNumPhotosBeforeRequest(): Int {
+        if (browseModel.currentApi == null)
+            browseModel.amountBeforeRequest = 0
+
+        return browseModel.amountBeforeRequest
+    }*/
+
     override fun requestMore() {
         if (browseModel.canRequestMore)
             browseModel.currentApi?.let {
@@ -90,10 +101,12 @@ class BrowsePresenter(
             }
     }
 
+    private fun requestExistingData(currentApi: BaseApi<RealmCollection>) {
+        val api = apiFactory.getApi(RxAlbumData(currentApi.data, false))
+        listenForApiData(api)
+    }
+
     override fun getItemViewType(position: Int): Int {
-
-
-        // temp setup
 
         val remainder = position % 4
 
@@ -111,8 +124,6 @@ class BrowsePresenter(
     }
 
     override fun getItemCount(): Int {
-
-        // temp setup
 
         val numPhotos = browseModel.currentApi?.data?.photos?.size ?: 0
 
@@ -136,15 +147,10 @@ class BrowsePresenter(
     }
 
     override fun getEnumForViewType(viewType: Int): GridViewType {
-
-        // temp setup
         return GridViewType.fromInt(viewType)!!
     }
 
     override fun getViewHolderData(position: Int): AdapterContract.ViewHolderData {
-
-
-        // temp setup
 
         val gridViewType = GridViewType.fromInt(getItemViewType(position))
         val currentApi = browseModel.currentApi ?: throw UnsupportedOperationException("this should never happen")
@@ -191,5 +197,9 @@ class BrowsePresenter(
             return photos!![index]
 
         return null
+    }
+
+    override fun destroy() {
+        compositeDisposable.dispose()
     }
 }

@@ -1,7 +1,7 @@
 package me.jameshunt.coolphotogrid.feature.activity
 
-import me.jameshunt.coolphotogrid.feature.album.AlbumContract
-import me.jameshunt.coolphotogrid.feature.browse.BrowseContract
+import me.jameshunt.coolphotogrid.feature.page.album.AlbumContract
+import me.jameshunt.coolphotogrid.feature.page.browse.BrowseContract
 
 /**
  * Created by James on 10/10/2017.

@@ -1,4 +1,4 @@
-package me.jameshunt.coolphotogrid.feature.album
+package me.jameshunt.coolphotogrid.feature.page.album
 
 import android.content.Context
 import android.support.constraint.ConstraintLayout
@@ -66,7 +66,10 @@ class AlbumView : ConstraintLayout, AlbumContract.View {
     }
 
     override fun insertItemsRecycler(startIndex: Int, count: Int) {
-        (adapter as RecyclerView.Adapter<*>).notifyItemRangeInserted(startIndex, count)
+        if (album_recycle.adapter == null)
+            album_recycle.adapter = adapter as RecyclerView.Adapter<*>
+        else
+            (adapter as RecyclerView.Adapter<*>).notifyItemRangeInserted(startIndex, count)
     }
 
     override fun showLoadingAnimation() {
@@ -87,5 +90,9 @@ class AlbumView : ConstraintLayout, AlbumContract.View {
 
         album_name_handle.text = albumName
         num_photos_handle.text = numPhotos.toString()
+    }
+
+    override fun destroy() {
+        presenter.destroy()
     }
 }

@@ -1,4 +1,4 @@
-package me.jameshunt.coolphotogrid.feature.browse
+package me.jameshunt.coolphotogrid.feature.page.browse
 
 import android.content.Context
 import android.support.constraint.ConstraintLayout
@@ -40,6 +40,8 @@ class BrowseView : ConstraintLayout, BrowseContract.View {
         AdapterContract.requestMoreWhenNecessary(browse_recycle, presenter, 4)
     }
 
+
+
     override fun refreshRecycler() {
 
         if (browse_recycle.adapter == null)
@@ -49,7 +51,10 @@ class BrowseView : ConstraintLayout, BrowseContract.View {
     }
 
     override fun insertItemsRecycler(startIndex: Int, count: Int) {
-        (adapter as RecyclerView.Adapter<*>).notifyItemRangeInserted(startIndex, count)
+        if (browse_recycle.adapter == null)
+            browse_recycle.adapter = adapter as RecyclerView.Adapter<*>
+        else
+            (adapter as RecyclerView.Adapter<*>).notifyItemRangeInserted(startIndex, count)
     }
 
     override fun showLoadingAnimation() {
@@ -58,5 +63,9 @@ class BrowseView : ConstraintLayout, BrowseContract.View {
 
     override fun hideLoadingAnimation() {
         progress_bar.visibility = View.GONE
+    }
+
+    override fun destroy() {
+        presenter.destroy()
     }
 }

@@ -7,6 +7,7 @@ import android.view.MotionEvent
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.album_layout.*
+import kotlinx.android.synthetic.main.browse_layout.*
 import kotlinx.android.synthetic.main.viewer_layout.*
 import me.jameshunt.coolphotogrid.Dimensions
 import me.jameshunt.coolphotogrid.R
@@ -14,7 +15,7 @@ import me.jameshunt.coolphotogrid.di.activity.Injector
 import me.jameshunt.coolphotogrid.feature.activity.slide.SlideOnTouch
 import me.jameshunt.coolphotogrid.feature.activity.slide.bottom.SlideBottomOnTouch
 import me.jameshunt.coolphotogrid.feature.activity.slide.top.SlideTopOnTouch
-import me.jameshunt.coolphotogrid.feature.album.AlbumView
+import me.jameshunt.coolphotogrid.feature.page.album.AlbumView
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), ActivityContract.View {
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity(), ActivityContract.View {
     @Inject
     override lateinit var presenter: ActivityContract.Presenter
 
-    lateinit var topSlideTouch: SlideOnTouch
+    var topSlideTouch: SlideOnTouch? = null
     lateinit var bottomSlideTouch: SlideOnTouch
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity(), ActivityContract.View {
     }
 
     override fun showBrowse() {
-        topSlideTouch.slideOpposite()
+        topSlideTouch?.slideOpposite()
     }
 
     override fun showViewer() {
@@ -70,7 +71,7 @@ class MainActivity : AppCompatActivity(), ActivityContract.View {
 
     private fun handleSlideTop() {
         topSlideTouch = SlideTopOnTouch(album_view, viewer_view, presenter)
-        setupSlideTouchListener(slide_handle_top, topSlideTouch)
+        setupSlideTouchListener(slide_handle_top, topSlideTouch!!)
     }
 
     private fun handleSlideBottom() {
@@ -101,6 +102,11 @@ class MainActivity : AppCompatActivity(), ActivityContract.View {
 
     override fun onDestroy() {
         super.onDestroy()
-        presenter.destroy()
+
+        if (isFinishing) {
+            presenter.destroy()
+            album_view.destroy()
+            browse_view.destroy()
+        }
     }
 }

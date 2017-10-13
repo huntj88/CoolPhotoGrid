@@ -1,8 +1,6 @@
-package me.jameshunt.coolphotogrid.feature.album.viewHolder
+package me.jameshunt.coolphotogrid.feature.page.album.viewHolder
 
 import me.jameshunt.coolphotogrid.feature.recycler.AdapterContract
-import me.jameshunt.coolphotogrid.feature.rx.RxCommunicatorContract
-import me.jameshunt.coolphotogrid.feature.rx.data.RxAlbumData
 import me.jameshunt.coolphotogrid.repo.realm.RealmCollection
 
 /**

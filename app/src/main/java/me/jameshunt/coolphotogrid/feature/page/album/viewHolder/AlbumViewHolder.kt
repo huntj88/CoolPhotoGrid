@@ -1,4 +1,4 @@
-package me.jameshunt.coolphotogrid.feature.album.viewHolder
+package me.jameshunt.coolphotogrid.feature.page.album.viewHolder
 
 import android.view.View
 import kotlinx.android.synthetic.main.album_view_holder.view.*

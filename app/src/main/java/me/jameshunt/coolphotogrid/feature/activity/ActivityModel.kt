@@ -11,6 +11,7 @@ class ActivityModel(
 
     override fun canAlbumSlideUp(): Boolean {
         return modelHolder.browseModel?.currentApi != null
+        //return false
     }
 
 
