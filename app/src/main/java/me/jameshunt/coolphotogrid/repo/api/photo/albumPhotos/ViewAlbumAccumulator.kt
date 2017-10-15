@@ -18,6 +18,9 @@ class ViewAlbumAccumulator(private val unsplashService: UnsplashService, private
 
     fun getDataFromRepo(data: RxAlbumData): Single<RealmCollection> {
 
+        if(data.album.numPhotos == data.album.photos?.size?:0)
+            return Single.just(data.album)
+
         return when(data.requestMore) {
             true -> requestMore(data)
             false -> fromCacheIfAvailable(data)

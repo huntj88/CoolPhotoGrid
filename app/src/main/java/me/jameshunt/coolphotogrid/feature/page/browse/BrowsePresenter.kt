@@ -80,7 +80,9 @@ class BrowsePresenter(
                     view.hideLoadingAnimation()
 
                     browseModel.amountBeforeRequest = numAfter
-                    browseModel.canRequestMore = true
+
+                    if(numAfter != browseModel.currentApi?.data?.numPhotos)
+                        browseModel.canRequestMore = true
                 }
         )
     }

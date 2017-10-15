@@ -15,7 +15,6 @@ class ActivityContract {
     }
 
     interface Model {
-        val modelHolder: ModelHolder
 
         var isAlbumSelected: Boolean
         fun canAlbumSlideUp(): Boolean

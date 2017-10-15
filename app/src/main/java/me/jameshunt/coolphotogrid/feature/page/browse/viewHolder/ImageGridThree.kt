@@ -17,19 +17,17 @@ class ImageGridThree(itemView: View): AdapterContract.ViewHolder(itemView) {
         }
 
         FrescoHelper.setImages(
-                data.photos[0]?.urls?.regular,
+                data.photos[0]?.urls?.small,
                 data.photos[0]?.urls?.thumb,
                 itemView.left_image
         )
 
-        FrescoHelper.setImages(
-                data.photos[1]?.urls?.small,
+        FrescoHelper.setImage(
                 data.photos[1]?.urls?.thumb,
                 itemView.top_right_image
         )
 
-        FrescoHelper.setImages(
-                data.photos[2]?.urls?.small,
+        FrescoHelper.setImage(
                 data.photos[2]?.urls?.thumb,
                 itemView.bottom_right_image
         )

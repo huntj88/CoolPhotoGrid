@@ -16,20 +16,17 @@ class ImageGridTwo(itemView: View): AdapterContract.ViewHolder(itemView) {
             throw UnsupportedOperationException("wrong time of viewHolder for this data")
         }
 
-        FrescoHelper.setImages(
-                data.photos[0]?.urls?.small,
+        FrescoHelper.setImage(
                 data.photos[0]?.urls?.thumb,
                 itemView.left_image
         )
 
-        FrescoHelper.setImages(
-                data.photos[1]?.urls?.small,
+        FrescoHelper.setImage(
                 data.photos[1]?.urls?.thumb,
                 itemView.middle_image
         )
 
-        FrescoHelper.setImages(
-                data.photos[2]?.urls?.small,
+        FrescoHelper.setImage(
                 data.photos[2]?.urls?.thumb,
                 itemView.right_image
         )
